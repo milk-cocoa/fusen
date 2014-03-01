@@ -23,10 +23,16 @@
     	group.append(cross);
     	group.append(p1);
     	group.append(p2);
-    	rect.attr({
-    		filter : g,
-    		fill : '#f0f0f0'
-    	});
+    	if(checkTablet()) {
+        	rect.attr({
+        		fill : '#f0f0f0'
+        	});
+    	}else{
+        	rect.attr({
+        		filter : g,
+        		fill : '#f0f0f0'
+        	});
+    	}
     	text.attr({
     		stroke : '#000000'
     	})
@@ -106,20 +112,23 @@
 		fusen.setPos(x, y);
 		fusen_set[id] = fusen;
 	}
-	background.mousedown(function(e) {
+	
+	function click_space(e, x, y) {
 		var text = myalert.prompt("新しいメモ", "メモを入力してください。", function(text) {
 			if(!text) {
 				return;
 			}
 			ds.push({
-				x : e.x,
-				y : e.y,
+				x : x,
+				y : y,
 				text : htmlEscape(text)
 			}, function() {
 				
 			});
 		});
-	})
+	}
+	background.click(click_space);
+	
 	function htmlEscape(s){
 		s=s.replace(/&/g,'&amp;');
 		s=s.replace(/>/g,'&gt;');
@@ -127,6 +136,7 @@
 		return s;
 	}
 	}
+	
 	function StrLen(str) {
 	    var ct;
 	    var size = 0;
@@ -140,5 +150,16 @@
 	    }
 	    return size;
 	}
+	function checkTablet() {
+		if(window.navigator.userAgent.indexOf("iPad") > 0) {
+			return true;
+		}
+		if(window.navigator.userAgent.indexOf("iPhone") > 0) {
+			return true;
+		}
+		return false;
+
+	}
+	
 	window.FusenEditor = FusenEditor;
 }())
