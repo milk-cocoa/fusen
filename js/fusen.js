@@ -3,7 +3,7 @@
 		var ds = groupDS.child('memos');
 	var snap = Snap('svg');
 	
-	var background = snap.rect(0, 0, 800, 600);
+	var background = snap.rect(0, 0, window.screen.width, window.screen.height);
 	background.attr({
 	    fill: "#ffffff",
 	    "fill-opacity" : 0,
@@ -86,8 +86,10 @@
 			}
 		}
 	})
-	ds.on('push', function(pushed) {
-		create_memo(pushed.id, pushed.x, pushed.y, pushed.text);
+	ds.on('push', function(_pushed) {
+		var pushed = _pushed.pushed;
+		console.log(pushed);
+		create_memo(pushed.id, pushed.params.x, pushed.params.y, pushed.params.text);
 	});
 	ds.on('set', function(_setted) {
 		var setted = _setted.updates[0];
@@ -105,16 +107,17 @@
 		fusen_set[id] = fusen;
 	}
 	background.mousedown(function(e) {
-		var text = prompt("メモを入力してください。");
-		if(!text) {
-			return;
-		}
-		ds.push({
-			x : e.x,
-			y : e.y,
-			text : htmlEscape(text)
-		}, function() {
-			
+		var text = myalert.prompt("新しいメモ", "メモを入力してください。", function(text) {
+			if(!text) {
+				return;
+			}
+			ds.push({
+				x : e.x,
+				y : e.y,
+				text : htmlEscape(text)
+			}, function() {
+				
+			});
 		});
 	})
 	function htmlEscape(s){

@@ -14,7 +14,8 @@
         <script src="js/rview.js"></script>
         <script src="js/snap.svg-min.js"></script>
         <script src="js/fusen.js"></script>
-        <script src="http://cdn.mlkcca.com/v2/milkcocoa.js"></script>
+        <script src="js/alert.js"></script>
+        <script src="http://cdn.mlkcca.com/v2.1/milkcocoa.js"></script>
             <script>
             $(function() {
                	var milkcocoa = new MilkCocoa("https://mlkcca.com", "your app id", function() {});
@@ -36,6 +37,14 @@
                 	            	rview.transition('fusen', {
                 	            		groupDS : groupDS
                 	            	});
+                	            	groupDS.child('memos').push({
+                	        			x : (window.screen.width / 2) >> 0,
+                	        			y : (window.screen.height / 2) >> 0,
+                	        			text : "クリックしてメモを書いてね。"
+                	        		}, function() {
+                	        			
+                	        		});
+
             					});
             				})
             			}
@@ -58,5 +67,23 @@
     <body>
       <div id="content"></div>
       <svg></svg>
+      <div id="myprompt" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title"></h4>
+	      </div>
+	      <div class="modal-body">
+	        <p></p>
+            <input type="text" class="form-control" placeholder="メモを入力してください" required autofocus>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button id="myprompt-ok" type="button" class="btn btn-primary">Ok</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
     </body>
 </html>
