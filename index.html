@@ -4,85 +4,253 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>付箋アプリ</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
+html{
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%
+}
+body{
+    font-family:"游ゴシック",YuGothic,"Lucida Grande","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Arial,sans-serif;
+    font-size: 15px;
+    color: #444;
+    margin: 0;
+    line-height: 1.6;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAAHpk4xqAAAAElBMVEX6+vrs7Ozr6+vu7u7v7+/t7e3EXgZMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHRJREFUKM/VzrERA0EQAsGdAfJPWRG8c55wuyi4xt3CDuCW9pCDnvOYl9HEq8bkMojcwHLYwpnUXjTrKZoLLd4a7KVtG0U9ZYWFkQM0aZd5mQoKyYFqNsAbbcMo7AKbykbuX5In4pv2TT618tTi6Uaf6HvrB6gQAgdgFALaAAAAAElFTkSuQmCC);
+}
+div{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+#canvas{
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+#back {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.husen {
+    z-index: 50;
+    cursor: move;
+    width: 200px;
+    position: absolute;
+    background: #ffffff; /* 付箋の色 */
+    padding: 8px 16px; 
+    box-shadow: 1px 1px 2px #EEE;
+}
+.husen .cross{
+    z-index: 51;
+    position: absolute;
+    top: -2px;
+    right: 4px;
+    cursor: pointer;
+    color: #999;
+}
+.husen .graytext{
+    z-index: 51;
+    position: absolute;
+    bottom: 0;
+    right: 4px;
+    color: #999;
+    font-size: 6px;
+}
+.header{
+    z-index: 100;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 5px 10px 5px 12px;
+    background: #fff;
+    filter:alpha(opacity=95);
+    -moz-opacity: 0.95;
+    opacity: 0.95;
+}
+.header p{
+    float: left;
+    line-height: 1.4;
+    font-size: 12px;
+    margin: 4px 0 8px;
+}
+.header .currentColor{
+    float: left;
+    margin-left: 6px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ededed;
+}
+.header .currentColor.active{
+    border: 1px solid #aaaaaa;
+}
+.header #white{
+    margin-left: 0;
+    clear: left;
+}
+.header #white, .husen.white{background-color: white}
+.header #green, .husen.green{background-color: #E6FCF6}
+.header #blue, .husen.blue{background-color: #E1F6FF}
+.header #yellow, .husen.yellow{background-color: #FFFBE9}
+.header #pink, .husen.pink{background-color: #FCF0F0}
+.header #purple, .husen.purple{background-color: #EEE9F4}
+
+
+
         </style>
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-        <script src="js/rview.js"></script>
-        <script src="js/snap.svg-min.js"></script>
-        <script src="js/fusen.js"></script>
-        <script src="js/alert.js"></script>
-        <script src="http://cdn.mlkcca.com/v2.1/milkcocoa.js"></script>
+        <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="js/jquery.mobile.custom.min.js"></script>
+        <script src="js/jquery.ui.touch-punch.min.js"></script>
+        <script src="http://cdn.mlkcca.com/v0.2.2/milkcocoa.js"></script>
             <script>
             $(function() {
-               	var milkcocoa = new MilkCocoa("https://mlkcca.com", "your app id", function() {});
-               	var ds = milkcocoa.dataStore('topics');
-            	rview.view("topics",
-            			['<div class="container">',
-            			 '<h1>付箋App</h1>',
-            			 '<input id="groupname" type="text" class="form-control" placeholder="トピック名を入力してください" required autofocus>',
-            			 '<ul id="topics"></ul>',
-            			 '<button class="btn">新規トピックの作成</button>',
-            			 '</div>']
-            			, function() {
-            				$('button').click(function() {
-            					ds.push({
-            						name : $('#groupname').val()
-            					}, function(group) {
-            						location.hash = group.pushed.id
-            						var groupDS = milkcocoa.DataStore('topics/'+group.pushed.id);
-                	            	rview.transition('fusen', {
-                	            		groupDS : groupDS
-                	            	});
-                	            	groupDS.child('memos').push({
-                	        			x : (window.screen.width / 2) >> 0,
-                	        			y : (window.screen.height / 2) >> 0,
-                	        			text : "クリックしてメモを書いてね。"
-                	        		}, function() {
-                	        			
-                	        		});
+                var ua = navigator.userAgent;
+                var milkcocoa = new MilkCocoa("https://io-jhxdw225l.mlkcca.com/");
+                var ds = milkcocoa.DataStore('fusen');
+                var curClr = "white";
 
-            					});
-            				})
-            			}
-            	);
-            	rview.view("fusen", ['<svg></svg>'], function(args) {
-            		FusenEditor(args.group_id, args.groupDS);
-            	});
-            	if(location.hash.substr(1)) {
-					var groupDS = milkcocoa.DataStore('topics/'+location.hash.substr(1));
-	            	rview.transition('fusen', {
-	            		groupDS : groupDS
-	            	});
-            	}else{
-                	rview.transition('topics');
-            	}
+                if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPad') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0) {
+                    $(".currentColor").on("tap", function(e){
+                        curClr = $(this).attr("id");
+                        $(".currentColor").each(function(){
+                            $(this).removeClass("active");
+                        });
+                        $(this).addClass("active"); 
+                        e.stopPropagation();
+                    });
+                } else {
+                    $(".currentColor").click(function(e){
+                        curClr = $(this).attr("id");
+                        $(".currentColor").each(function(){
+                            $(this).removeClass("active");
+                        });
+                        $(this).addClass("active"); 
+                        e.stopPropagation();
+                    });
+                }
 
+                function Fusen(_id, text, color) {
+                    var id = _id;
+                    if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPad') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0) {
+                        $("#canvas").append('<div id="'+id+'" class="husen '+color+'">'+text+'<div class="graytext">付箋を長押しで削除</div></div>');
+                    } else {
+                        $("#canvas").append('<div id="'+id+'" class="husen '+color+'">'+text+'<div class="cross">×</div></div>');
+                    }
+                    
+                    var pos = {x : 0, y : 0};
+                    var cross = $(".cross", "#"+id);
+
+                    $( "#"+id ).draggable({
+                      start: function() {
+                      },
+                      drag: function() {
+                        pos.x = $("#"+id).position().left;
+                        pos.y = $("#"+id).position().top;
+                      },
+                      stop: function() {
+                        ds.child(id).set({
+                            x : pos.x,
+                            y : pos.y
+                        }, function() {});
+                      }
+                    });
+                    
+                    cross.click(function(e) {
+                        ds.remove(id);
+                        e.stopPropagation();
+                    });
+                    
+                    if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPad') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0) {
+                        $("#"+id).on("taphold", tapholdHandler);
+                    }
+
+                    function tapholdHandler(e){
+                        ret = confirm("このメッセージを削除しますか？");
+                        if (ret == true){
+                          ds.remove(id);
+                        }
+                    }
+
+                    function setPos(x, y) {
+                        pos.x = x;
+                        pos.y = y;
+                        $("#"+id).offset({top : pos.y, left : pos.x});
+                    }
+                    function removeSelf() {
+                        $("#"+id).remove();
+                    }
+                    return {
+                        setPos : setPos,
+                        removeSelf : removeSelf
+                    }
+                }
+                ds.query({}).done(function(e) {
+                    for(var i=0;i < e.length;i++) {
+                        create_memo(e[i].id, e[i].x, e[i].y, e[i].text, e[i].color);
+                    }
+                });
+                ds.on('push', function(pushed) {
+                    create_memo(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
+                });
+                ds.on('set', function(setted) {
+                    fusen_set[setted.id].setPos(setted.value.x, setted.value.y);
+                });
+                ds.on('remove', function(_removed) {
+                    var removed = _removed;
+                    fusen_set[removed.id].removeSelf();
+                });
+                var fusen_set = {};
+                function create_memo(id, x, y, text, color) {
+                    var fusen = new Fusen(id, text, color);
+                    fusen.setPos(x, y);
+                    fusen_set[id] = fusen;
+                }
+
+                $("#back").click(function(e) {
+                    console.log(e);
+                    var text = prompt("メモを入力してください。");
+                    var _curClr = curClr;
+                    if(!text) {
+                        return;
+                    }
+                    ds.push({
+                        x : e.pageX,
+                        y : e.pageY,
+                        text : htmlEscape(text),
+                        color : _curClr
+                    }, function() {
+                        
+                    });
+                });
+
+                function htmlEscape(s){
+                    s=s.replace(/&/g,'&amp;');
+                    s=s.replace(/>/g,'&gt;');
+                    s=s.replace(/</g,'&lt;');
+                    return s;
+                }
             });
-                </script>
+            </script>
     </head>
     <body>
-      <div id="content"></div>
-      <div id="myprompt" class="modal fade">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title"></h4>
-	      </div>
-	      <div class="modal-body">
-	        <p></p>
-            <input type="text" class="form-control" placeholder="メモを入力してください" required autofocus>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button id="myprompt-ok" type="button" class="btn btn-primary">Ok</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+        <div class="header">
+            <p>キャンバスをクリックorタップして付箋を貼ろう！</p>
+            <div class="currentColor active" id="white"></div>
+            <div class="currentColor" id="green"></div>
+            <div class="currentColor" id="blue"></div>
+            <div class="currentColor" id="yellow"></div>
+            <div class="currentColor" id="pink"></div>
+            <div class="currentColor" id="purple"></div>
+        </div>
+        <div id="back"></div>
+        <div id="canvas"></div>
     </body>
 </html>
