@@ -19,4 +19,8 @@ gulp.task('webserver', function() {
         }));
 });
 
-gulp.task("default",["webserver","js-task"]);
+gulp.task("watch",function(){
+    return gulp.watch("js/**/*.js",["js-task"]);
+});
+
+gulp.task("default",["webserver","js-task","js-task"]);
