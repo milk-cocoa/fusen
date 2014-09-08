@@ -4,10 +4,15 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 
 gulp.task('js-task',function(){
-    gulp.src('js/**/*.js')
+    return gulp.src('js/src/*.js')
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('app/jsmin/'));
+});
+
+gulp.task("js-lib-task",function(){
+    return gulp.src("js/lib/*.js")
+        .pipe(gulp.dest("app/jsmin/lib/"));
 });
 
 gulp.task('webserver', function() {
@@ -23,4 +28,4 @@ gulp.task("watch",function(){
     return gulp.watch("js/**/*.js",["js-task"]);
 });
 
-gulp.task("default",["webserver","js-task","js-task"]);
+gulp.task("default",["webserver","js-task","js-lib-task"]);

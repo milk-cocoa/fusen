@@ -1,0 +1,96 @@
+html{
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%
+}
+body{
+    font-family:"游ゴシック",YuGothic,"Lucida Grande","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Arial,sans-serif;
+    font-size: 15px;
+    color: #444;
+    margin: 0;
+    line-height: 1.6;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAAHpk4xqAAAAElBMVEX6+vrs7Ozr6+vu7u7v7+/t7e3EXgZMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHRJREFUKM/VzrERA0EQAsGdAfJPWRG8c55wuyi4xt3CDuCW9pCDnvOYl9HEq8bkMojcwHLYwpnUXjTrKZoLLd4a7KVtG0U9ZYWFkQM0aZd5mQoKyYFqNsAbbcMo7AKbykbuX5In4pv2TT618tTi6Uaf6HvrB6gQAgdgFALaAAAAAElFTkSuQmCC);
+}
+div{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+#canvas{
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+#back {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.husen {
+    z-index: 50;
+    cursor: move;
+    width: 200px;
+    position: absolute;
+    background: #ffffff; /* 付箋の色 */
+    padding: 8px 16px;
+    box-shadow: 1px 1px 2px #EEE;
+}
+.husen .cross{
+    z-index: 51;
+    position: absolute;
+    top: -2px;
+    right: 4px;
+    cursor: pointer;
+    color: #999;
+}
+.husen .graytext{
+    z-index: 51;
+    position: absolute;
+    bottom: 0;
+    right: 4px;
+    color: #999;
+    font-size: 6px;
+}
+.header{
+    z-index: 100;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 5px 10px 5px 12px;
+    background: #fff;
+    filter:alpha(opacity=95);
+    -moz-opacity: 0.95;
+    opacity: 0.95;
+}
+.header p{
+    float: left;
+    line-height: 1.4;
+    font-size: 12px;
+    margin: 4px 0 8px;
+}
+.header .currentColor{
+    float: left;
+    margin-left: 6px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ededed;
+}
+.header .currentColor.active{
+    border: 1px solid #aaaaaa;
+}
+.header #white{
+    margin-left: 0;
+    clear: left;
+}
+.header #white, .husen.white{background-color: white}
+.header #green, .husen.green{background-color: #E6FCF6}
+.header #blue, .husen.blue{background-color: #E1F6FF}
+.header #yellow, .husen.yellow{background-color: #FFFBE9}
+.header #pink, .husen.pink{background-color: #FCF0F0}
+.header #purple, .husen.purple{background-color: #EEE9F4}
