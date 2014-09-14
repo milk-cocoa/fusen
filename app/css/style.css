@@ -10,6 +10,111 @@ body{
     line-height: 1.6;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAAHpk4xqAAAAElBMVEX6+vrs7Ozr6+vu7u7v7+/t7e3EXgZMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHRJREFUKM/VzrERA0EQAsGdAfJPWRG8c55wuyi4xt3CDuCW9pCDnvOYl9HEq8bkMojcwHLYwpnUXjTrKZoLLd4a7KVtG0U9ZYWFkQM0aZd5mQoKyYFqNsAbbcMo7AKbykbuX5In4pv2TT618tTi6Uaf6HvrB6gQAgdgFALaAAAAAElFTkSuQmCC);
 }
+#header{
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+}
+.logo{
+    padding: 15px 10px 2px 20px;
+    background: #3a7dd1;
+    margin: 0;
+    z-index: 999;
+}
+.titlebox{
+    border-bottom: 1px solid #D3D3D3;
+}
+.title{
+    padding: 15px 10px 15px 20px;
+    color: #3a7dd1;
+    background: #FFF;
+    margin: 0;
+    z-index: 999;
+}
+.title_icon{
+    width: 30px;
+height: 30px;
+border: 4px solid #2D68B3;
+border-radius: 3px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+float: left;
+margin: 0 10px 0 5px;
+position:relative;
+}
+
+.title_icon:before{
+    content: '';
+    height: 5px;
+    width: 20px;
+    background: #2D68B3;
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    box-shadow: 0 8px 0 #2D68B3, 0 16px 0 #2D68B3;
+    -webkit-box-shadow: 0 8px 0 #2D68B3, 0 16px 0 #2D68B3;
+    -moz-box-shadow: 0 8px 0 #2D68B3, 0 16px 0 #2D68B3;
+}
+.menu{
+    position: absolute;
+    background: #F5F5F5;
+    width: 250px;
+    height: 100%;
+    top: 140px;
+    z-index: 999;
+    border-right: 1px solid #DADADA;
+}
+.menu ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.menu li{
+    width: 210px;
+    margin: 0 auto;
+    padding: 20px 5px;
+    border-bottom: 1px solid #C0C0C0;
+}
+.talkbox{
+    position: absolute;
+    left: 250px;
+    top: 139px;
+    background: #F8F8F8;
+    border: 1px solid #C0C0C0;
+    width: 80px;
+    height: 65px;
+}
+.talk_icon{
+    margin: 11px 13px;
+    width: 55px;
+}
+/*.talk_icon{
+    width:24px;
+    overflow:hidden;
+    position: relative;
+}
+
+.talk_icon:before{
+    content: '';
+    height: 35px;
+    width: 45px;
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    z-index: 1;
+    line-height: 26px;
+    background: #333;
+    border-radius: 40px 40px 40px 0;
+    -webkit-border-radius: 40px 40px 40px 0;
+    -moz-border-radius: 40px 40px 40px 0;
+    color: #fff;
+    text-align: center;
+}*/
+
+.talk_icon:after{content:''; height:0px; width:0px; display:block; position:absolute; bottom:1px; left:-9px; border:10px transparent solid; border-top-color:#333; border-width:14px 17px 0px 10px;}
 div{
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -28,14 +133,63 @@ div{
     height: 100%;
     cursor: pointer;
 }
+.color_list{
+    z-index: 100;
+    top: 230px;
+    left: 250px;
+    width: 70px;
+    position: absolute;
+    padding: 15px 10px 15px 12px;
+    background: #F8F8F8;
+    border: 1px solid #C0C0C0;
+/*    filter:alpha(opacity=95);
+    -moz-opacity: 0.95;
+    opacity: 0.95;*/
+}
+.color_list p{
+    float: left;
+    line-height: 1.4;
+    font-size: 12px;
+    margin: 4px 0 8px;
+}
+.color_list .currentColor{
+    position: relative;
+    margin: 2px 4px 2px 6px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ededed;
+}
+.color_list .currentColor.active{
+    /*background: url(../images/active.png) no-repeat 0 10px;*/
+}
+.active{
+    position: absolute;
+    margin: 17px 58px;
+}
+.color_list #white{
+    margin-left: 0;
+    clear: left;
+}
+.color_list #blue, .husen.blue{background-color: #298dd4}
+.color_list #green, .husen.green{background-color: #0fbd8b}
+.color_list #red, .husen.red{background-color: #e7755e}
+.color_list #orange, .husen.orange{background-color: #f99b42}
+.color_list #purple, .husen.purple{background-color: #7f9ebc}
+.color_list #pink, .husen.pink{background-color: #f78ba7}
+
 .husen {
     z-index: 50;
     cursor: move;
     width: 200px;
     position: absolute;
-    background: #ffffff; /* 付箋の色 */
+    background: #298dd4; /* 付箋の色 */
     padding: 8px 16px;
-    box-shadow: 1px 1px 2px #EEE;
+    box-shadow: 1px 1px 2px #EEE, -1px -1px 2px #EEE;
+    color: #FFF;
 }
 .husen .cross{
     z-index: 51;
@@ -43,7 +197,7 @@ div{
     top: -2px;
     right: 4px;
     cursor: pointer;
-    color: #999;
+    color: #FFF;
 }
 .husen .graytext{
     z-index: 51;
@@ -53,44 +207,3 @@ div{
     color: #999;
     font-size: 6px;
 }
-.header{
-    z-index: 100;
-    top: 0;
-    left: 0;
-    position: absolute;
-    padding: 5px 10px 5px 12px;
-    background: #fff;
-    filter:alpha(opacity=95);
-    -moz-opacity: 0.95;
-    opacity: 0.95;
-}
-.header p{
-    float: left;
-    line-height: 1.4;
-    font-size: 12px;
-    margin: 4px 0 8px;
-}
-.header .currentColor{
-    float: left;
-    margin-left: 6px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 1px solid #ededed;
-}
-.header .currentColor.active{
-    border: 1px solid #aaaaaa;
-}
-.header #white{
-    margin-left: 0;
-    clear: left;
-}
-.header #white, .husen.white{background-color: white}
-.header #green, .husen.green{background-color: #E6FCF6}
-.header #blue, .husen.blue{background-color: #E1F6FF}
-.header #yellow, .husen.yellow{background-color: #FFFBE9}
-.header #pink, .husen.pink{background-color: #FCF0F0}
-.header #purple, .husen.purple{background-color: #EEE9F4}

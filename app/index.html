@@ -4,26 +4,47 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>付箋アプリ</title>
-        <link rel="stylesheet" href="/css/style.css" type="text/css" />
-
-        <script src="http://cdn.mlkcca.com/v0.2.6/milkcocoa.js"></script>
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <script src="http://cdn.mlkcca.com/v0.2.7/milkcocoa.js"></script>
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="jsmin/lib/jquery-ui-1.10.4.custom.min.js"></script>
         <script src="jsmin/lib/jquery.mobile.custom.min.js"></script>
-        <script src="/jsmin/load-milkcocoa.min.js"></script>
-        <script src="/jsmin/main.min.js"></script>
+        <script src="jsmin/load-milkcocoa.min.js"></script>
+        <script src="jsmin/main.min.js"></script>
     </head>
     <body>
-        <div class="header">
-            <p>キャンバスをクリックorタップして付箋を貼ろう！</p>
-            <div class="currentColor active" id="white"></div>
-            <div class="currentColor" id="green"></div>
-            <div class="currentColor" id="blue"></div>
-            <div class="currentColor" id="yellow"></div>
-            <div class="currentColor" id="pink"></div>
-            <div class="currentColor" id="purple"></div>
+    <header id="header">
+        <div class="logobox">
+            <h1 class="logo"><a href="/"><img src="images/logo.png" alt=""></a></h1>
         </div>
-        <div id="back"></div>
-        <div id="canvas"></div>
+        <div class="titlebox">
+            <h2 class="title"><span class="title_icon"></span>サービスデザインについて色々語り合うボード</h2>
+        </div>
+    </header>
+    <div class="menu">
+        <ul>
+            <li>ああああ</li>
+            <li>ああああ</li>
+            <li>ああああ</li>
+            <li>ああああ</li>
+        </ul>
+    </div>
+    <div class="talkbox">
+        <img class="talk_icon" src="images/talk_icon.png" alt="">
+    </div>
+    <div class="color_list">
+        <!-- <img class="active" src="images/active.png" alt=""> -->
+        <div class="currentColor" id="blue"></div>
+        <div class="currentColor" id="green"></div>
+        <div class="currentColor" id="red"></div>
+        <div class="currentColor" id="orange"></div>
+        <div class="currentColor" id="purple"></div>
+        <div class="currentColor" id="pink"></div>
+    </div>
+
+    <div id="back"></div>
+    <div id="canvas"></div>
+
+
     </body>
 </html>
