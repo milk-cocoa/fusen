@@ -1,49 +1,36 @@
-/* HUSEN */
+/* fix */
+.p-husen__cross{color: inherit;}
+
+.p-husen{
+    border-width: 3px;
+}
+
+/* theme */
 .theme-husen--one {
-    border-width: 1px;
-    background-color: #298dd4;
-    border-color: #fff;
-    color: #fff;
-    font-weight: normal;
+    color: #298dd4;
+    border-color: #298dd4;
 }
 .theme-husen--two {
-    border-width: 1px;
-    background-color: #0fbd8b;
-    border-color: #fff;
-    color: #fff;
-    font-weight: normal;
+    color: #0fbd8b;
+    border-color: #0fbd8b;
 }
 .theme-husen--three {
-    border-width: 1px;
-    background-color: #e7755e;
-    border-color: #fff;
-    color: #fff;
-    font-weight: normal;
+    color: #e7755e;
+    border-color: #e7755e;
 }
 .theme-husen--four {
-    border-width: 1px;
-    background-color: #f99b42;
-    border-color: #fff;
-    color: #fff;
-    font-weight: normal;
+    color: #f99b42;
+    border-color: #f99b42;
 }
 .theme-husen--five {
-    border-width: 1px;
-    background-color: #7f9ebc;
-    border-color: #fff;
-    color: #fff;
-    font-weight: normal;
+    color: #7f9ebc;
+    border-color: #7f9ebc;
 }
 .theme-husen--six {
-    border-width: 1px;
-    background-color: #f78ba7;
-    border-color: #fff;
-    color: #fff;
-    font-weight: normal;
+    color: #f78ba7;
+    border-color: #f78ba7;
 }
 
-
-/* SIDEBAR */
 .theme-colorlist__item--one{border-color: #298dd4}
 .theme-colorlist__item--one.is-active{background-color: #298dd4}
 .theme-colorlist__item--two{border-color: #0fbd8b}
