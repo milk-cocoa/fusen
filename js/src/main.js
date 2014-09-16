@@ -1,7 +1,7 @@
 $(function() {
     var ua = navigator.userAgent;
     var ds = milkcocoa.dataStore('fusen');
-    var curClr = "blue";
+    var curClr = "one";
     var canvas = $("#canvas");
     var fusenBuilder = new FusenBuilder(canvas, ds);
 
@@ -9,7 +9,7 @@ $(function() {
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPad') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0) {
         device = "mobile";
     }else{
-        device = "pc";        
+        device = "pc";
     }
 
     // select color

@@ -1,0 +1,58 @@
+/* HUSEN */
+.theme-husen--one {
+    border-width: 1px;
+    background-color: #298dd4;
+    border-color: #fff;
+    color: #fff;
+    font-weight: normal;
+}
+.theme-husen--two {
+    border-width: 1px;
+    background-color: #0fbd8b;
+    border-color: #fff;
+    color: #fff;
+    font-weight: normal;
+}
+.theme-husen--three {
+    border-width: 1px;
+    background-color: #e7755e;
+    border-color: #fff;
+    color: #fff;
+    font-weight: normal;
+}
+.theme-husen--four {
+    border-width: 1px;
+    background-color: #f99b42;
+    border-color: #fff;
+    color: #fff;
+    font-weight: normal;
+}
+.theme-husen--five {
+    border-width: 1px;
+    background-color: #7f9ebc;
+    border-color: #fff;
+    color: #fff;
+    font-weight: normal;
+}
+.theme-husen--six {
+    border-width: 1px;
+    background-color: #f78ba7;
+    border-color: #fff;
+    color: #fff;
+    font-weight: normal;
+}
+
+
+/* SIDEBAR */
+.theme-colorlist__item--one{border-color: #298dd4}
+.theme-colorlist__item--one.is-active{background-color: #298dd4}
+.theme-colorlist__item--two{border-color: #0fbd8b}
+.theme-colorlist__item--two.is-active{background-color: #0fbd8b}
+.theme-colorlist__item--three{border-color: #e7755e}
+.theme-colorlist__item--three.is-active{background-color: #e7755e}
+.theme-colorlist__item--four{border-color: #f99b42}
+.theme-colorlist__item--four.is-active{background-color: #f99b42}
+.theme-colorlist__item--five{border-color: #7f9ebc}
+.theme-colorlist__item--five.is-active{background-color: #7f9ebc}
+.theme-colorlist__item--six{border-color: #f78ba7}
+.theme-colorlist__item--six.is-active{background-color: #f78ba7}

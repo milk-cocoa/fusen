@@ -24,9 +24,9 @@
 		this.canvas = canvas;
 
         if (fusen_util.getDevice() == "mobile") {
-            this.canvas.append('<div id="'+this.id+'" class="p-husen p-husen--'+color+'">'+fusen_util.htmlEscape(text)+'<div class="p-husen__note">付箋を長押しで削除</div></div>');
+            this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'">'+fusen_util.htmlEscape(text)+'<div class="p-husen__note">付箋を長押しで削除</div></div>');
         } else {
-            this.canvas.append('<div id="'+this.id+'" class="p-husen p-husen--'+color+'">'+fusen_util.htmlEscape(text)+'<div class="p-husen__cross">×</div></div>');
+            this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'">'+fusen_util.htmlEscape(text)+'<div class="p-husen__cross">×</div></div>');
         }
 
         var cross = $(".p-husen__cross", "#"+this.id);
