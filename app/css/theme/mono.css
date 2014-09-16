@@ -1,3 +1,9 @@
+/* fix */
+.p-husen:last-child{
+  box-shadow: 0 0 2px 2px rgba(234,172,64,.6);
+  border: none;
+}
+
 /* theme */
 .theme-husen--one, .theme-husen--three, .theme-husen--four, .theme-husen--five, .theme-husen--six {
     border-width: 2px;

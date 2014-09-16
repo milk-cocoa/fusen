@@ -75,6 +75,7 @@
 		}
 		if( (self.pos.x + $("#"+self.id).width()) > self.canvas.width()){
 			self.canvas.css( "width", (self.pos.x + $("#"+self.id).outerWidth())+"px" );
+            $("#header").css( "width", (self.pos.x + $("#"+self.id).outerWidth())+"px" );
 		}
 	}
 

@@ -4,7 +4,9 @@
 .p-husen{
     border-width: 3px;
 }
-
+.p-husen:last-child{
+    background: #F8FDD5;
+}
 /* theme */
 .theme-husen--one {
     color: #298dd4;
