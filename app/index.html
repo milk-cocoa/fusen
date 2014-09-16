@@ -1,51 +1,59 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>付箋アプリ</title>
-        <link rel="stylesheet" href="css/style.css" type="text/css" />
-        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
-        <script src="http://cdn.mlkcca.com/v0.2.7/milkcocoa.js"></script>
-        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="jsmin/lib/jquery-ui-1.10.4.custom.min.js"></script>
-        <script src="jsmin/lib/jquery.mobile.custom.min.js"></script>
-        <script src="jsmin/load-milkcocoa.min.js"></script>
-        <script src="jsmin/main.min.js"></script>
-    </head>
-    <body>
-    <header id="header">
-        <div class="logobox">
-            <svg width="56" height="33" viewBox="0 0 56 33" version="1.1" xmlns="http://www.w3.org/2000/svg"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g stroke="#676F7D" stroke-width="3"><path d="M34 3L51.1 20.2 44.5 20.2 34 30.7 20.1 16.8 34 3Z" fill="#676F7D"/><path d="M21.2 3L4 20.2 10.7 20.2 21.2 30.7 35 16.8 21.2 3Z" fill="#FFFFFF"/></g></g></svg><h1 class="logo">POSTALK</h1>
-        </div>
-        <div class="titlebox">
-            <h2 class="title"><span class="title_icon"></span>サービスデザインについて色々語り合うボード</h2>
-        </div>
-    </header>
-    <div class="menu">
-        <ul>
-            <li>ああああ</li>
-            <li>ああああ</li>
-            <li>ああああ</li>
-            <li>ああああ</li>
-        </ul>
-    </div>
-    <div class="talkbox">
-        <img class="talk_icon" src="images/talk_icon.png" alt="">
-    </div>
-    <div class="color_list">
-        <!-- <img class="active" src="images/active.png" alt=""> -->
-        <div class="currentColor" id="blue"></div>
-        <div class="currentColor" id="green"></div>
-        <div class="currentColor" id="red"></div>
-        <div class="currentColor" id="orange"></div>
-        <div class="currentColor" id="purple"></div>
-        <div class="currentColor" id="pink"></div>
-    </div>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>サービスデザインについて色々語り合うボード | POSTALK</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <script src="http://cdn.mlkcca.com/v0.2.8/milkcocoa.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="jsmin/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="jsmin/lib/jquery.mobile.custom.min.js"></script>
+    <script src="jsmin/load-milkcocoa.min.js"></script>
+    <script src="jsmin/main.min.js"></script>
+</head>
 
-    <div id="back"></div>
+<body>
+
+    <div id="header">
+        <div class="p-header__logo">
+            <a href="/">
+                <div class="p-header__logo__img">
+                    <svg width="56" height="33" viewBox="0 0 56 33" version="1.1" xmlns="http://www.w3.org/2000/svg"><g stroke="#676F7D" stroke-width="3" fill="none" fill-rule="evenodd"><path d="M34 3L51.1 20.2 44.5 20.2 34 30.7 20.1 16.8 34 3Z" fill="#676F7D"/><path d="M21.2 3L4 20.2 10.7 20.2 21.2 30.7 35 16.8 21.2 3Z" fill="#FFFFFF"/></g></svg>
+                </div><!-- .p-header__logo__img -->
+                <h1 class="p-header__logo__txt">POSTALK</h1>
+            </a>
+        </div><!-- .p-header__logo -->
+
+        <h2 class="p-header__title">サービスデザインについて色々語り合うボード</h2>
+    </div><!-- #header -->
+
+
+    <div id="sidebar">
+    <!--<div class="p-timeline">
+            <ul class="p-timeline__list">
+                <li>ああああ</li>
+                <li>ああああ</li>
+                <li>ああああ</li>
+                <li>ああああ</li>
+            </ul>
+            <div class="p-timeline__button">
+
+            </div>
+        </div> -->
+
+        <div class="p-colorlist">
+            <div class="p-colorlist__item p-colorlist__item--first p-colorlist__item--blue is-active" id="blue"></div>
+            <div class="p-colorlist__item p-colorlist__item--green" id="green"></div>
+            <div class="p-colorlist__item p-colorlist__item--red" id="red"></div>
+            <div class="p-colorlist__item p-colorlist__item--orange" id="orange"></div>
+            <div class="p-colorlist__item p-colorlist__item--purple" id="purple"></div>
+            <div class="p-colorlist__item p-colorlist__item--pink" id="pink"></div>
+        </div><!-- .p-colorlist -->
+    </div><!-- #sidebar -->
+
     <div id="canvas"></div>
 
-
-    </body>
+</body>
 </html>

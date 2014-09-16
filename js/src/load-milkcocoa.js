@@ -1,1 +1,1 @@
-var milkcocoa = new MilkCocoa("https://io-bhzt7xcur.mlkcca.com");
+var milkcocoa = new MilkCocoa("https://io-ti04vv99t.mlkcca.com:443");

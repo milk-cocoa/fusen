@@ -1,39 +1,44 @@
 $(function() {
     var ua = navigator.userAgent;
-    var milkcocoa = new MilkCocoa("https://io-jhxdw225l.mlkcca.com/");
-    var ds = milkcocoa.DataStore('fusen');
-    var curClr = "white";
+    var ds = milkcocoa.dataStore('fusen');
+    var curClr = "blue";
+    var canvas = $("#canvas");
 
+
+    // select color
     if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPad') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0) {
-        $(".currentColor").on("tap", function(e){
+        $(".p-colorlist__item").on("tap", function(e){
             curClr = $(this).attr("id");
-            $(".currentColor").each(function(){
-                $(this).removeClass("active");
+            $(".p-colorlist__item").each(function(){
+                $(this).removeClass("is-active");
             });
-            $(this).addClass("active");
+            $(this).addClass("is-active");
             e.stopPropagation();
         });
     } else {
-        $(".currentColor").click(function(e){
+        $(".p-colorlist__item").click(function(e){
             curClr = $(this).attr("id");
-            $(".currentColor").each(function(){
-                $(this).removeClass("active");
+            $(".p-colorlist__item").each(function(){
+                $(this).removeClass("is-active");
             });
-            $(this).addClass("active");
+            $(this).addClass("is-active");
             e.stopPropagation();
         });
     }
 
+
     function Fusen(_id, text, color) {
+
         var id = _id;
+
         if (ua.indexOf('iPhone') > 0 || ua.indexOf('iPad') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0) {
-            $("#canvas").append('<div id="'+id+'" class="husen '+color+'">'+text+'<div class="graytext">付箋を長押しで削除</div></div>');
+            $("#canvas").append('<div id="'+id+'" class="p-husen p-husen--'+color+'">'+text+'<div class="p-husen__note">付箋を長押しで削除</div></div>');
         } else {
-            $("#canvas").append('<div id="'+id+'" class="husen '+color+'">'+text+'<div class="cross">×</div></div>');
+            $("#canvas").append('<div id="'+id+'" class="p-husen p-husen--'+color+'">'+text+'<div class="p-husen__cross">×</div></div>');
         }
 
         var pos = {x : 0, y : 0};
-        var cross = $(".cross", "#"+id);
+        var cross = $(".p-husen__cross", "#"+id);
 
         $( "#"+id ).draggable({
           start: function() {
@@ -47,6 +52,14 @@ $(function() {
                 x : pos.x,
                 y : pos.y
             }, function() {});
+
+            if( (pos.y + $(this).height()) > canvas.height()){
+                canvas.css( "height", (pos.y + $(this).outerHeight())+"px" );
+            }
+            if( (pos.x + $(this).width()) > canvas.width()){
+                canvas.css( "width", (pos.x + $(this).outerWidth())+"px" );
+            }
+
           }
         });
 
@@ -101,7 +114,7 @@ $(function() {
         fusen_set[id] = fusen;
     }
 
-    $("#back").click(function(e) {
+    canvas.click(function(e) {
         console.log(e);
         var text = prompt("メモを入力してください。");
         var _curClr = curClr;
