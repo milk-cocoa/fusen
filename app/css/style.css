@@ -234,12 +234,4 @@ textarea {
     .p-husen:hover .p-husen__cross{
         display: block;
     }
-    .p-husen__note{
-        z-index: 4;
-        position: absolute;
-        bottom: 0;
-        right: 4px;
-        color: #999;
-        font-size: 6px;
-    }
 /* HUSEN END */
