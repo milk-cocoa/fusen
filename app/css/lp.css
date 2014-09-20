@@ -69,11 +69,16 @@ body{
   }
     .p-lp__form__input{
       border: 1px solid #DFE6E8;
+      border-radius: 0;
+      -webkit-appearance: none;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       width: 100%;
       padding: 4px 8px;
+    }
+    .p-lp__form__input:focus{
+      border-color: #0FBD8B;
     }
     .p-lp__form__button{
       font-family: "Montserrat",sans-serif;
