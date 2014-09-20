@@ -13,25 +13,14 @@ $(function() {
     }
 
     // select color
-    if (device == "mobile") {
-        $(".p-colorlist__item").on("tap", function(e){
-            curClr = $(this).attr("id");
-            $(".p-colorlist__item").each(function(){
-                $(this).removeClass("is-active");
-            });
-            $(this).addClass("is-active");
-            e.stopPropagation();
+    $(".p-colorlist__item").click(function(e){
+        curClr = $(this).attr("id");
+        $(".p-colorlist__item").each(function(){
+            $(this).removeClass("is-active");
         });
-    } else {
-        $(".p-colorlist__item").click(function(e){
-            curClr = $(this).attr("id");
-            $(".p-colorlist__item").each(function(){
-                $(this).removeClass("is-active");
-            });
-            $(this).addClass("is-active");
-            e.stopPropagation();
-        });
-    }
+        $(this).addClass("is-active");
+        e.stopPropagation();
+    });
 
     ds.query({}).done(function(e) {
         for(var i=0;i < e.length;i++) {
@@ -49,7 +38,8 @@ $(function() {
         fusenBuilder.getFusen(removed.id).removeSelf();
     });
 
-    function create_memo(id, x, y, text, color) {
+    function create_memo(id, x, y, _text, color) {
+        var text = _text || "";
         var fusen = fusenBuilder.createFusen(id, text, color);
         fusen.setPos(x, y);
     }
