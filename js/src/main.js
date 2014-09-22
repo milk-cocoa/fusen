@@ -22,13 +22,29 @@ $(function() {
         e.stopPropagation();
     });
 
+    $(".p-header__title").dblclick(function(e){
+        olddata = document.getElementById("page-title").innerHTML;
+         document.getElementById("page-title").innerHTML = "<input id='page-title_input' type='text'>";
+         document.getElementById("page-title_input").value = olddata;
+        $('#page-title').skOuterClick(function() {
+            newdata = document.getElementById("page-title_input").value;
+            ds.push({
+                page_title : newdata
+            });
+        });
+        e.stopPropagation();
+    });
+
     ds.query({}).done(function(e) {
         for(var i=0;i < e.length;i++) {
             create_memo(e[i].id, e[i].x, e[i].y, e[i].text, e[i].color);
+            edit_title(e[i].page_title);
         }
     });
     ds.on('push', function(pushed) {
         create_memo(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
+        edit_title(pushed.value.page_title);
+        fusen_edit(pushed.value.fusen_edit);
     });
     ds.on('set', function(setted) {
         fusenBuilder.getFusen(setted.id).setPos(setted.value.x, setted.value.y);
@@ -42,6 +58,15 @@ $(function() {
         var text = _text || "";
         var fusen = fusenBuilder.createFusen(id, text, color);
         fusen.setPos(x, y);
+    }
+
+    function edit_title(edit_text){
+        document.getElementById("page-title").innerHTML = edit_text;
+    }
+
+    function fusen_edit(fusen_edit){
+        $(this).text(fusen_edit);
+        fusenBuilder.editFusen();
     }
 
     canvas.click(function(e) {
