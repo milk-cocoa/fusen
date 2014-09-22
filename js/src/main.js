@@ -22,7 +22,7 @@ $(function() {
         e.stopPropagation();
     });
 
-    $(".p-header__title").dblclick(function(e){
+    $("#page-title").dblclick(function(e){
         olddata = document.getElementById("page-title").innerHTML;
          document.getElementById("page-title").innerHTML = "<input id='page-title_input' type='text'>";
          document.getElementById("page-title_input").value = olddata;

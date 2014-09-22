@@ -155,6 +155,13 @@ textarea {
         margin: 0;
         border-bottom: 1px solid #EFF0F4;
     }
+    #page-title{
+      margin: 0;
+      width:550px;
+    }
+    #page-title_input{
+      width:550px;
+    }
 
 /* HEADER END */
 
