@@ -24,9 +24,9 @@ $(function() {
 
     $("#page-title").dblclick(function(e){
         olddata = document.getElementById("page-title").innerHTML;
-         document.getElementById("page-title").innerHTML = "<input id='page-title_input' type='text'>";
-         document.getElementById("page-title_input").value = olddata;
-        $('#page-title').skOuterClick(function() {
+        document.getElementById("page-title").innerHTML = "<input id='page-title_input' type='text'>";
+        document.getElementById("page-title_input").value = olddata;
+        $("#page-title_input").skOuterClick(function(e) {
             newdata = document.getElementById("page-title_input").value;
             ds.push({
                 page_title : newdata
@@ -44,7 +44,7 @@ $(function() {
     ds.on('push', function(pushed) {
         create_memo(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
         edit_title(pushed.value.page_title);
-        fusen_edit(pushed.value.fusen_edit);
+        // fusen_edit(pushed.value.fusen_edit);
     });
     ds.on('set', function(setted) {
         fusenBuilder.getFusen(setted.id).setPos(setted.value.x, setted.value.y);
@@ -64,10 +64,10 @@ $(function() {
         document.getElementById("page-title").innerHTML = edit_text;
     }
 
-    function fusen_edit(fusen_edit){
-        $(this).text(fusen_edit);
-        fusenBuilder.editFusen();
-    }
+    // function fusen_edit(fusen_edit){
+    //     $(this).text(fusen_edit);
+    //     fusenBuilder.editFusen();
+    // }
 
     canvas.click(function(e) {
         var text = prompt("メモを入力してください。");
