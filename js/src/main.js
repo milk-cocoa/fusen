@@ -89,6 +89,7 @@ $(function() {
             s=s.replace(/&/g,'&amp;');
             s=s.replace(/>/g,'&gt;');
             s=s.replace(/</g,'&lt;');
+            s=s.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g,'<a href="$1" target="_blank">$1</a>');
             return s;
         }
     }
