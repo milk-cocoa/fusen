@@ -1,6 +1,10 @@
 $(function() {
     var ua = navigator.userAgent;
-    var ds = milkcocoa.dataStore('fusen');
+    var room = location.hash.substr(1);
+    if(room == "") room = "_empty";
+    var fusenDataStore = milkcocoa.DataStore('fusen');
+    var ds = fusenDataStore.child(room);
+
     var curClr = "one";
     var canvas = $("#canvas");
     var fusenBuilder = new FusenBuilder(canvas, ds);
@@ -44,7 +48,6 @@ $(function() {
     ds.on('push', function(pushed) {
         create_memo(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
         edit_title(pushed.value.page_title);
-        // fusen_edit(pushed.value.fusen_edit);
     });
     ds.on('set', function(setted) {
         fusenBuilder.getFusen(setted.id).setPos(setted.value.x, setted.value.y);
@@ -63,11 +66,6 @@ $(function() {
     function edit_title(edit_text){
         document.getElementById("page-title").innerHTML = edit_text;
     }
-
-    // function fusen_edit(fusen_edit){
-    //     $(this).text(fusen_edit);
-    //     fusenBuilder.editFusen();
-    // }
 
     canvas.click(function(e) {
         var text = prompt("メモを入力してください。");
