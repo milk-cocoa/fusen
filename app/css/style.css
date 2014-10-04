@@ -155,26 +155,39 @@ textarea {
         margin: 0;
         border-bottom: 1px solid #EFF0F4;
     }
-    #page-title{
-      margin: 0;
-      width:550px;
-      cursor: pointer;
-    }
-    #page-title_input{
-      width:550px;
-      display: none;
-    }
-    #title-edit-finish{
-      display: none;
-      width: 60px;
-      padding: 5px;
-      text-align: center;
-      font-weight: 700;
-      letter-spacing: 1px;
-      background: #676F7D;
-      color: #FFF;
-      cursor: pointer;
-    }
+      .p-header__title__inner{
+        cursor: pointer;
+        padding: 4px 9px;
+        display: inline-block;
+      }
+      .p-header__title__input{
+        padding: 0;
+        display: none;
+        border: 1px solid #DFE6E8;
+        border-radius: 0;
+        -webkit-appearance: none;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        max-width: 320px;
+        padding: 0 8px;
+      }
+      .p-header__title__input:focus{
+        border-color: #0FBD8B;
+      }
+      .p-header__title__button{
+        font-size: 12px;
+        display: none;
+        width: 60px;
+        margin-left: 16px;
+        padding: 4px 8px;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 1px;
+        background: #676F7D;
+        color: #FFF;
+        cursor: pointer;
+      }
 
 /* HEADER END */
 

@@ -28,15 +28,21 @@ $(function() {
 
     $("#page-title").click(function(e){
         olddata = document.getElementById("page-title").innerHTML;
-        $("#page-title_input").css("display","block");
-        $("#title-edit-finish").css("display","block");
+        $("#page-title_input").css("display","inline-block");
+        $("#title-edit-finish").css("display","inline-block");
         $("#page-title").css("display","none");
         document.getElementById("page-title_input").value = olddata;
+        if(!$("#page-title_input").is(":focus")){
+            $("#page-title_input").select().focus();
+        }
         $("#title-edit-finish").click(function(e) {
             newdata = document.getElementById("page-title_input").value;
+            if(!newdata){
+                return;
+            }
             $("#page-title_input").css("display","none");
             $("#title-edit-finish").css("display","none");
-            $("#page-title").css("display","block");
+            $("#page-title").css("display","inline-block");
             document.getElementById("page-title").innerHTML = newdata;
             ds.push({
                 page_title : newdata
