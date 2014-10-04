@@ -180,13 +180,16 @@ textarea {
         display: none;
         width: 60px;
         margin-left: 16px;
-        padding: 4px 8px;
+        padding: 5px 8px;
         text-align: center;
         font-weight: 700;
         letter-spacing: 1px;
-        background: #676F7D;
-        color: #FFF;
+        background: #DFE4E6;
         cursor: pointer;
+      }
+      .p-header__title__button:hover{
+        background: #676F7D;
+        color: #fff;
       }
 
 /* HEADER END */
