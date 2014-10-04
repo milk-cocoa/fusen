@@ -1,7 +1,7 @@
 (function(global){
 
 	function FusenBuilder(canvas, ds) {
-		this.canvas = $("#fusen-show");
+		this.canvas = canvas;
 		this.ds = ds;
 		this.fusens = {};
 	}

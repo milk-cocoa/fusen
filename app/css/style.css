@@ -158,9 +158,22 @@ textarea {
     #page-title{
       margin: 0;
       width:550px;
+      cursor: pointer;
     }
     #page-title_input{
       width:550px;
+      display: none;
+    }
+    #title-edit-finish{
+      display: none;
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: #676F7D;
+      color: #FFF;
+      cursor: pointer;
     }
 
 /* HEADER END */
