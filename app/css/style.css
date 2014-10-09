@@ -113,7 +113,7 @@ textarea {
  * 5: sidebar;
  */
 #back{z-index: 1}
-#canvas{z-index: 2}
+#canvas{z-index: auto}
 .p-husen{z-index: 3}
 .p-husen__cross{z-index: 4}
 .p-husen__note{z-index: 4}
@@ -227,8 +227,17 @@ textarea {
 
 
 
+/* BACK */
+#back {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
 
-
+/* BACK END */
 
 
 /* CANVAS */
@@ -270,4 +279,4 @@ textarea {
     .p-husen:hover .p-husen__cross{
         display: block;
     }
-/* HUSEN END */
+/* HUSEN END

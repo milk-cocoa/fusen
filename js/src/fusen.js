@@ -24,9 +24,9 @@
 		this.canvas = canvas;
 
         if (fusen_util.getDevice() == "mobile") {
-            this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'">'+fusen_util.htmlEscape(text)+'</div>');
+            this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'">'+fusen_util.hyperlink(text)+'</div>');
         } else {
-            this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'">'+fusen_util.htmlEscape(text)+'<div class="p-husen__cross">×</div></div>');
+            this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'">'+fusen_util.hyperlink(text)+'<div class="p-husen__cross">×</div></div>');
         }
 
         var cross = $(".p-husen__cross", "#"+this.id);
@@ -90,6 +90,7 @@
 			self.canvas.css( "width", (self.pos.x + $("#"+self.id).outerWidth())+"px" );
             $("#header").css( "width", (self.pos.x + $("#"+self.id).outerWidth())+"px" );
 		}
+
 	}
 
 	Fusen.prototype.removeSelf = function() {

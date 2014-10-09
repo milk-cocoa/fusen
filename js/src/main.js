@@ -47,9 +47,6 @@ $(function() {
             ds.push({
                 page_title : newdata
             });
-            ds.on('push', function(pushed) {
-                edit_title(pushed.value.page_title);
-            });
         });
         e.stopPropagation();
     });
@@ -62,6 +59,7 @@ $(function() {
     });
     ds.on('push', function(pushed) {
         create_memo(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
+        edit_title(pushed.value.page_title);
     });
     ds.on('set', function(setted) {
         fusenBuilder.getFusen(setted.id).setPos(setted.value.x, setted.value.y);
@@ -77,11 +75,15 @@ $(function() {
         fusen.setPos(x, y);
     }
 
-    function edit_title(edit_text){
+    function edit_title(_edit_text){
+        if(!_edit_text){
+            return;
+        }
+        var edit_text = _edit_text;
         document.getElementById("page-title").innerHTML = edit_text;
     }
 
-    canvas.click(function(e) {
+    $("#back").click(function(e) {
         var text = prompt("メモを入力してください。");
         var _curClr = curClr;
         if(!text) {
@@ -99,12 +101,18 @@ $(function() {
         getDevice : function() {
             return device;
         },
+        hyperlink : function(s) {
+            s=s.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g,'<a href="$1" target="_blank">$1</a>');
+
+            return s;
+        },
         htmlEscape : function(s) {
             s=s.replace(/&/g,'&amp;');
             s=s.replace(/>/g,'&gt;');
             s=s.replace(/</g,'&lt;');
-            s=s.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g,'<a href="$1" target="_blank">$1</a>');
+
             return s;
         }
     }
+
 });
