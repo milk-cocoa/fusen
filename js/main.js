@@ -21,9 +21,9 @@
 	        s=s.replace(/</g,'&lt;');
 	        return s;
     	},
-    	init : function() {
+    	init : function(host) {
     		var self = this;
-		    milkcocoa = new MilkCocoa("https://io-{your-appid}.mlkcca.com");
+		    milkcocoa = new MilkCocoa(host);
             milkcocoa.getCurrentUser(function(err, user) {
                 if(err == 1) {
                     open_login_modal();
