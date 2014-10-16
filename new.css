@@ -1,0 +1,185 @@
+html {
+  -webkit-text-size-adjust:100%;
+  -ms-text-size-adjust:100%;
+}
+
+body {
+  font-family:"游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Arial,sans-serif;
+  font-size:15px;
+  background:#f7f7f7;
+  min-width:320px;
+  line-height:1.6;
+  color:#3a342e;
+  margin:0;
+}
+
+h1 {
+  font-size:2em;
+  line-height:1.2;
+  margin:0;
+}
+p {
+  margin:1em 0 1.6em;
+}
+a {
+  color:#222;
+  background:transparent;
+}
+a:hover,a:active {
+  color:#154BE5;
+  text-decoration:none;
+  outline:0;
+}
+a:focus {
+  outline:thin dotted;
+}
+textarea {
+  overflow:auto;
+  vertical-align:top;
+}
+.cf:before,.cf:after {
+  content:" ";
+  display:table;
+}
+.cf:after {
+  clear:both;
+}
+.cf {
+  *zoom:1;
+}
+.header {
+  background-color:#1ba39c;
+  width:100%;
+  padding:.75em 0;
+}
+
+.header .logo {
+  font-family:"Arial Black";
+  font-weight:900;
+  color:#fff;
+  max-width:960px;
+  margin:0 auto;
+  padding:0 .7em;
+}
+
+.header .logo a {
+  color:#fff;
+}
+
+.container {
+  width:100%;
+  background-color:#45bfb6;
+}
+
+.container .postarea {
+  max-width:720px;
+  margin:0 auto;
+  padding:2em 1.3em;
+}
+
+.container .postarea .postarea-text {
+  width:100%;
+}
+
+.container .postarea .postarea-text textarea {
+  font-size:1em;
+  width: 100%;
+  border:1px solid #EDEDED;
+  border-radius:5px;
+  height:34px;
+  resize:vertical;
+  color:#3a342e;
+  padding:.5em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.container .postarea .postarea-share {
+  float:left;
+  width:9.5em;
+}
+
+.container .postarea .postarea-share p {
+  white-space:nowrap;
+  color:#fff;
+  font-size:.72em;
+  margin:.5em 0 .1em;
+}
+
+.container .postarea .postarea-share .postarea-share-button {
+  width:100%;
+  margin-right:-2em;
+}
+
+.container .postarea .postarea-share .postarea-share-button a {
+  font-size:1.5em;
+  float:left;
+  display:block;
+  width:2.9em;
+  text-align:center;
+  background:#f7f7f7;
+  color:#848484;
+  text-decoration:none;
+  height:1.8em;
+  line-height:1.8em;
+  border-radius:3px;
+  border:1px solid #EDEDED;
+  vertical-align:middle;
+}
+
+.container .postarea .postarea-share .postarea-share-button .postarea-share-facebook {
+  margin-right:.3em;
+}
+
+.container .postarea .postarea-button {
+  font-weight:700;
+  margin-top:.6em;
+  font-size:1em;
+  height:3.85em;
+  background:#f7f7f7;
+  color:#848484;
+  cursor:pointer;
+  line-height:3.85em;
+  border-radius:3px;
+  text-align:center;
+  border:1px solid #EDEDED;
+  text-decoration:none;
+  float:right;
+  width:8.8em;
+}
+
+.content {
+  max-width:760px;
+  margin:3em auto;
+}
+
+.content .post {
+  margin-top:2em;
+  border-bottom:1px dotted #ccc;
+  padding:0 1em 1em;
+}
+
+.content .post .post-date{
+  font-size:.7em;
+  color:#848484;
+  text-align:right;
+  border:0;
+  margin:0;
+}
+
+.footer {
+  font-size:.8em;
+  color:#848484;
+  max-width:760px;
+  margin:2em auto 0;
+  padding:0 1em 3em;
+}
+
+.content .post .post-text {
+  margin:0;
+}
+
+.container .postarea .postarea-share .postarea-share-button a:hover,.container .postarea .postarea-button:hover {
+  background:#E6E6E6;
+}

@@ -1,0 +1,255 @@
+html{
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%
+}
+body{
+    font-family:"游ゴシック",YuGothic,"Lucida Grande","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Arial,sans-serif;
+    font-size: 15px;
+    color: #444;
+    margin: 0;
+    line-height: 1.6;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAAHpk4xqAAAAElBMVEX6+vrs7Ozr6+vu7u7v7+/t7e3EXgZMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHRJREFUKM/VzrERA0EQAsGdAfJPWRG8c55wuyi4xt3CDuCW9pCDnvOYl9HEq8bkMojcwHLYwpnUXjTrKZoLLd4a7KVtG0U9ZYWFkQM0aZd5mQoKyYFqNsAbbcMo7AKbykbuX5In4pv2TT618tTi6Uaf6HvrB6gQAgdgFALaAAAAAElFTkSuQmCC);
+}
+div{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+#canvas{
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+#back {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.husen {
+    z-index: 50;
+    cursor: move;
+    width: 200px;
+    position: absolute;
+    background: #ffffff; /* 付箋の色 */
+    padding: 8px 16px; 
+    box-shadow: 1px 1px 2px #EEE;
+}
+.husen .cross{
+    z-index: 51;
+    position: absolute;
+    top: -2px;
+    right: 4px;
+    cursor: pointer;
+    color: #999;
+}
+.husen .graytext{
+    z-index: 51;
+    position: absolute;
+    bottom: 0;
+    right: 4px;
+    color: #999;
+    font-size: 6px;
+}
+.header{
+    z-index: 100;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 5px 10px 5px 12px;
+    background: #fff;
+    filter:alpha(opacity=95);
+    -moz-opacity: 0.95;
+    opacity: 0.95;
+}
+.header p{
+    float: left;
+    line-height: 1.4;
+    font-size: 12px;
+    margin: 4px 0 8px;
+}
+.header .currentColor{
+    float: left;
+    margin-left: 6px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ededed;
+}
+.header .currentColor.active{
+    border: 1px solid #aaaaaa;
+}
+.header #white{
+    margin-left: 0;
+    clear: left;
+}
+.header #white, .husen.white{background-color: white}
+.header #green, .husen.green{background-color: #E6FCF6}
+.header #blue, .husen.blue{background-color: #E1F6FF}
+.header #yellow, .husen.yellow{background-color: #FFFBE9}
+.header #pink, .husen.pink{background-color: #FCF0F0}
+.header #purple, .husen.purple{background-color: #EEE9F4}
+
+.iOS .jsmodal-window, .android .jsmodal-window {
+  position: absolute; }
+
+.jsmodal-window {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: fixed;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  -moz-opacity: 0.95;
+  opacity: 0.95;
+  border: 1px solid #eaeaea;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  z-index: 99999;
+  display: none; }
+  @media screen and (max-width: 480px) {
+    .jsmodal-window {
+      top: 50%;
+      left: 50%;
+      margin-top: -180px;
+      margin-left: -150px;
+      width: 300px;
+      min-height: 300px; } }
+  @media screen and (min-width: 481px) {
+    .jsmodal-window {
+      top: 50%;
+      left: 50%;
+      margin-top: -185px;
+      margin-left: -210px;
+      width: 420px;
+      min-height: 30px; } }
+  .jsmodal-window p {
+    color: #999999;
+    font-size: 10px;
+    max-width: 340px;
+    margin: 5px auto;
+    text-align: center; }
+
+.jsmodal-window-header {
+  padding: 20px;
+  border-bottom: 1px solid #EDEDED;
+  background-color: #f9f9f9;
+  margin-bottom: 12px; }
+  @media screen and (max-width: 480px) {
+    .jsmodal-window-header {
+      padding: 16px 20px; } }
+
+.jsmodal-window-headline {
+  line-height: 1;
+  letter-spacing: 0.15em;
+  margin: 0;
+  color: #3F3F3F;
+  font-size: 16px; }
+  @media screen and (max-width: 480px) {
+    .jsmodal-window-headline {
+      font-size: 14px; } }
+
+.jsmodal-window-body {
+  padding: 12px 0 20px; }
+
+.jsmodal-window-form-label {
+  color: #3f3f3f;
+  vertical-align: middle;
+  font-weight: normal;
+  width: 70px;
+  margin-left: 30px;
+  float: left;
+  height: 35px;
+  line-height: 35px; }
+  @media screen and (max-width: 480px) {
+    .jsmodal-window-form-label {
+      width: 100%;
+      margin-left: 20px;
+      line-height: 20px;
+      height: 20px; } }
+
+.jsmodal-window-form-input {
+  color: #3f3f3f;
+  max-width: 270px;
+  margin-left: 120px;
+  margin-bottom: 24px; }
+  @media screen and (max-width: 480px) {
+    .jsmodal-window-form-input {
+      max-width: 260px;
+      margin-left: 20px;
+      margin-bottom: 12px; } }
+  .jsmodal-window-form-input .form-control {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 18px;
+    border: 1px solid #dddddd;
+    padding: 6px; }
+    @media screen and (max-width: 480px) {
+      .jsmodal-window-form-input .form-control {
+        font-size: 16px; } }
+    .jsmodal-window-form-input .form-control:focus {
+      border: 1px solid #D3B20D !important;
+      background: #FCFCE3 !important; }
+
+.jsmodal-window-alert {
+  margin-bottom: 5px;
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center; }
+  .jsmodal-window-alert.jsmodal-window-alert-danger {
+    text-align: left;
+    margin: 0 24px 34px; }
+  .jsmodal-window-alert.alert-info {
+    margin: 15px 20px 0; }
+
+.jsmodal-window-close {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  color: #aaaaaa;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1;
+  text-decoration: none; }
+  @media screen and (max-width: 480px) {
+    .jsmodal-window-close {
+      top: 11px; } }
+
+.jsmodal-window-btn {
+  border: 0;
+  cursor: pointer;
+  margin: 0 auto;
+  width: 80%;
+  padding: 12px 0;
+  background: #b7b7b7;
+  color: #333;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-delay: 0;
+  transition-delay: 0; }
+  .jsmodal-window-btn:hover {
+    background: #d0d0d0; }
+  .jsmodal-window-btn:disabled {
+    background: #f0f0f0; }
+  .jsmodal-window-btn#signin-btn {
+    margin-top: 30px; }
+  .jsmodal-window-btn.jsmodal-window-btn_apps {
+    margin-bottom: 20px; }

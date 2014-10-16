@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>付箋アプリ</title>
+        <link rel="stylesheet" href="css/fusen.css" type="text/css" />
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="js/jquery.mobile.custom.min.js"></script>
+        <script src="js/jquery.ui.touch-punch.min.js"></script>
+        <script src="http://cdn.mlkcca.com/v0.2.8/milkcocoa.js"></script>
+        <script src="js/jsmodal.js"></script>
+        <script src="js/main.js"></script>
+            <script>
+            $(function(){
+                fusen.init();
+            })
+            </script>
+    </head>
+    <body>
+        <div class="header">
+            <p>
+                キャンバスをクリックorタップして付箋を貼ろう！
+                URLの最後に#{ボード名}でボードを開けます。
+            </p>
+            <div class="currentColor active" id="white"></div>
+            <div class="currentColor" id="green"></div>
+            <div class="currentColor" id="blue"></div>
+            <div class="currentColor" id="yellow"></div>
+            <div class="currentColor" id="pink"></div>
+            <div class="currentColor" id="purple"></div>
+        </div>
+        <div id="back"></div>
+        <div id="canvas"></div>
+
+        <!-- Register Modal -->
+        <div id="register-modal" class="jsmodal-window">
+
+        <div class="jsmodal-window-header">
+        <h1 class="jsmodal-window-headline">新規登録</h1>
+        </div>
+
+        <div class="jsmodal-window-body">
+        <form>
+        <dl>
+        <dt class="jsmodal-window-form-label">メールアドレス</dt>
+        <dd class="jsmodal-window-form-input"><input type="email" class="form-control" id="register-email"></dd>
+        <dt class="jsmodal-window-form-label">パスワード</dt>
+        <dd class="jsmodal-window-form-input"><input type="password" class="form-control" id="register-password"></dd>
+
+        <dt class="jsmodal-window-form-label">パスワード確認</dt>
+        <dd class="jsmodal-window-form-input"><input type="password" class="form-control" id="register-password2"></dd>
+        </dl>
+        <div id="reg-message"></div>
+        <a id="register-btn" class="jsmodal-window-btn" role="button">新規登録する</a>
+        <a id="switch-to-login-btn">ログインしますか？</a>
+        </form>
+        </div>
+
+        <div class="jsmodal-window-footer">
+        </div>
+        </div>
+        <!-- /Modal -->
+
+        <!-- Register Modal -->
+        <div id="login-modal" class="jsmodal-window">
+
+        <div class="jsmodal-window-header">
+        <h1 class="jsmodal-window-headline">ログイン</h1>
+        </div>
+
+        <div class="jsmodal-window-body">
+        <form>
+        <dl>
+        <dt class="jsmodal-window-form-label">メールアドレス</dt>
+        <dd class="jsmodal-window-form-input"><input type="email" class="form-control" id="login-email"></dd>
+        <dt class="jsmodal-window-form-label">パスワード</dt>
+        <dd class="jsmodal-window-form-input"><input type="password" class="form-control" id="login-password"></dd>
+        </dl>
+        <div id="login-message"></div>
+        <a id="login-btn" class="jsmodal-window-btn" role="button">ログイン</a>
+        <a id="switch-btn">新規登録しますか？</a>
+        </form>
+        </div>
+
+        <div class="jsmodal-window-footer">
+        </div>
+        </div>
+        <!-- /Modal -->
+
+    </body>
+</html>
