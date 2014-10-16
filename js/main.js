@@ -23,7 +23,7 @@
     	},
     	init : function() {
     		var self = this;
-		    milkcocoa = new MilkCocoa("https://io-fi0rk67il.mlkcca.com");
+		    milkcocoa = new MilkCocoa("https://io-{your-appid}.mlkcca.com");
             milkcocoa.getCurrentUser(function(err, user) {
                 if(err == 1) {
                     open_login_modal();
