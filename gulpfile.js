@@ -18,10 +18,10 @@ gulp.task("js-lib-task",function(){
 gulp.task('webserver', function() {
       gulp.src('app')
         .pipe(webserver({
-            livereload: false,
+            livereload: true,
             directoryListing: false,
             open: true
-        }));
+          }));
 });
 
 gulp.task("watch",function(){
