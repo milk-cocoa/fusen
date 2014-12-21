@@ -26,6 +26,10 @@ $(function() {
         e.stopPropagation();
     });
 
+    $("#page-title_input").keypress(function(e){
+      if(e.which === 13) $("#title-edit-finish").trigger('click');
+    });
+
     $("#page-title").click(function(e){
         olddata = document.getElementById("page-title").innerHTML;
         $("#page-title_input").css("display","inline-block");

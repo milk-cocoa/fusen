@@ -10,6 +10,10 @@ $(function(){
     createRoom();
   });
 
+  $(".p-lp__form__input").keypress(function(e){
+    if(e.which === 13) $('.p-lp__form__button').trigger('click');
+  })
+
   var createRoom = function() {
     var roomId = $(".p-lp__form__input").val();
 
