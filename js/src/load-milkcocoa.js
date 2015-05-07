@@ -1,1 +1,0 @@
-var milkcocoa = new MilkCocoa('flagi9edsvtg.mlkcca.com');
