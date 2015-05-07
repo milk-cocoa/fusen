@@ -1,1 +1,1 @@
-var milkcocoa = new MilkCocoa('flagi9edsvtg.mlkcca.com');
+var milkcocoa = new MilkCocoa('{your-app-id}.mlkcca.com');
