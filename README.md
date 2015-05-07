@@ -1,8 +1,23 @@
 fusen
 =====
 
-付箋アプリは https://mlkcca.com で作られています。
 
-your app idのところを、milkcocoaで作ったapp idに書き換えてください。
+# How To Install
 
-    new MilkCocoa("https://your-app-id.mlkcca.com/");
+```
+npm install
+```
+
+# How To Start
+
+```
+gulp
+```
+
+
+
+この付箋アプリは https://mlkcca.com で作られています。
+
+js/src/load-milkcocoa.jsの{your app id}を、milkcocoaで作成したapp idに書き換えてください。
+
+    var milkcocoa = new MilkCocoa("your-app-id.mlkcca.com/");

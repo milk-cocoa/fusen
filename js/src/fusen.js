@@ -39,7 +39,7 @@
             self.pos.y = $("#"+self.id).position().top;
           },
           stop: function() {
-            self.ds.child(self.id).set({
+            self.ds.set(self.id, {
                 x : self.pos.x,
                 y : self.pos.y
             });

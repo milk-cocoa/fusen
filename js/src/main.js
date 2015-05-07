@@ -22,9 +22,9 @@ $(function() {
         e.stopPropagation();
     });
 
-    ds.query({}).done(function(e) {
-        for(var i=0;i < e.length;i++) {
-            create_memo(e[i].id, e[i].x, e[i].y, e[i].text, e[i].color);
+    ds.stream().size(20).sort('desc').next(function(err, datas) {
+        for(var i=0;i < datas.length;i++) {
+            create_memo(datas[i].id, datas[i].value.x, datas[i].value.y, datas[i].value.text, datas[i].value.color);
         }
     });
     ds.on('push', function(pushed) {
