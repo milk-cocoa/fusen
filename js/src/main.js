@@ -1,6 +1,13 @@
 $(function() {
+    $(window).on("hashchange", function(){
+      location.reload();
+    });
+
+    var room = "";
+    if(location.hash) room = location.hash.slice(1);
     var ua = navigator.userAgent;
     var ds = milkcocoa.dataStore('fusen');
+    if(room != "") ds = ds.child(room);
     var curClr = "one";
     var canvas = $("#canvas");
     var fusenBuilder = new FusenBuilder(canvas, ds);
