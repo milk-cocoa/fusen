@@ -2,7 +2,9 @@
 .p-husen__cross{color: inherit;}
 
 .p-husen{
-    border-width: 3px;
+    border-width: 1px;
+    font-size: 10px;
+    word-wrap: break-word;
 }
 .p-husen:last-child{
     background: #F8FDD5;
