@@ -16,7 +16,7 @@ gulp.task("js-lib-task",function(){
 });
 
 gulp.task('webserver', function() {
-      gulp.src('app')
+      gulp.src('/')
         .pipe(webserver({
             livereload: false,
             directoryListing: false,

@@ -124,6 +124,7 @@ textarea {
 /* HEADER */
 #header{
     position: relative;
+    display: none;
 }
     .p-header__logo{
         height: 64px;
