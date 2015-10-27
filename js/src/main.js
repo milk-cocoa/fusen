@@ -4,14 +4,23 @@ $(function() {
     });
 
 
-
     var ua = navigator.userAgent;
     var ds = milkcocoa.dataStore('fusen');
- 
+
     var room = "";
     if(location.hash) room = location.hash.slice(1);
     if(room != "") ds = ds.child(room);
     $("#title").text(room);
+
+
+
+
+		ds.on("send", function(data){
+			console.log(data.value);
+		});
+
+
+
 
     var curClr = "one";
     var canvas = $("#canvas");
@@ -34,7 +43,7 @@ $(function() {
         e.stopPropagation();
     });
 
-    ds.stream().size(20).sort('desc').next(function(err, datas) {
+    ds.stream().size(999).sort('desc').next(function(err, datas) {
         for(var i=0;i < datas.length;i++) {
             create_memo(datas[i].id, datas[i].value.x, datas[i].value.y, datas[i].value.text, datas[i].value.color);
         }
@@ -68,6 +77,17 @@ $(function() {
             text : fusen_util.htmlEscape(text),
             color : _curClr
         });
+    });
+
+    $("#replay").click(function(e){
+      fusenBuilder.replay(function(fusensByOrder){
+        fusensByOrder.map(function(fusen){
+          setTimeout(function(){
+            create_memo(fusen.id, fusen.pos.x, fusen.pos.y, fusen.text, fusen.color)
+            return true;
+          }, 500);
+        });
+      });
     });
 
     window.fusen_util = {
