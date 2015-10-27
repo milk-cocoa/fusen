@@ -81,12 +81,10 @@ $(function() {
 
     $("#replay").click(function(e){
       fusenBuilder.replay(function(fusensByOrder){
-        fusensByOrder.map(function(fusen){
-          setTimeout(function(){
-            create_memo(fusen.id, fusen.pos.x, fusen.pos.y, fusen.text, fusen.color)
-            return true;
-          }, 500);
-        });
+        setInterval(function(){
+          var fusen = fusensByOrder.shift();
+          create_memo(fusen.id, fusen.pos.x, fusen.pos.y, fusen.text, fusen.color);
+        }, 750);
       });
     });
 
