@@ -23,7 +23,8 @@ gulp.task('webserver', function() {
 });
 
 gulp.task("watch",function(){
-    return gulp.watch("js/**/*.js",["js-task"]);
+    return gulp.watch("js/src/*.js",["js-task"]);
 });
 
 gulp.task("default",["webserver","js-task","js-lib-task"]);
+gulp.task("build",["js-task","js-lib-task"]);

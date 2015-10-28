@@ -9,12 +9,19 @@
 		this.color = color;
 		this.canvas = canvas;
 		this.fusenNumber = fusenNumber;
+		var escapedText = fusen_util.htmlEscape(text);
+		var r = /https?:\/\/.+(\ |$)/;
+		var found = escapedText.match(r);
+		var url = (found != null) ? found[0] : "";
+		var short_url = url.split(/\/\//)[1];
+		var linkText = escapedText.replace(r, "<a href='"+url+"' target='_blank'>"+short_url+"</a>" ) ;
 
     if (fusen_util.getDevice() == "mobile") {
-      this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'" data-fusenNumber="'+this.fusenNumber+'">'+fusen_util.htmlEscape(text)+'</div>');
+      this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'" data-fusenNumber="'+this.fusenNumber+'"><span>'+linkText+'</span><input type="text" style="display:none;" /></div>');
     } else {
-      this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'" data-fusenNumber="'+this.fusenNumber+'">'+fusen_util.htmlEscape(text)+'<div class="p-husen__cross">×</div></div>');
+      this.canvas.append('<div id="'+this.id+'" class="p-husen theme-husen--'+color+'" data-fusenNumber="'+this.fusenNumber+'"><span>'+linkText+'</span><input type="text" style="display:none;" /><div class="p-husen__cross">×</div></div>');
     }
+
 		// 色を深める
 		var $_fusen = $("#"+this.id);
 		var fusen_color = $_fusen.css("border-color");
@@ -26,9 +33,11 @@
 		$_fusen.css("color", new_color);
 		$_fusen.css("border-color", new_color);
 
+
+		// 削除ボタン
     var cross = $(".p-husen__cross", "#"+this.id);
 
-
+		// ドラッグボタン
     $( "#"+this.id ).draggable({
       start: function() {
       },
@@ -46,10 +55,35 @@
       }
     });
 
+
+		// ばってんクリック時の削除処理
     cross.click(function(e) {
       self.ds.remove(self.id);
       e.stopPropagation();
     });
+
+		// 付箋クリック時の編集処理(タッチ端末未実装)
+		// 「再生」後の付箋は不可っぽい
+		$_fusen.click(function(e){
+			$__fusen = $(this);
+			var text = $__fusen.find("span").text();
+			$__fusen.find("span").hide();
+			$input = $__fusen.find("input");
+			$input.val(text);
+			$input.css("display", "inline");
+			$input.focus();
+			$input.off("keypress").on("keypress", function(e){
+				if(e.which == 13){
+					self.ds.set(self.id+"", {text: $(this).val()},function(err, datum){
+						$input.hide();
+						$__fusen.find("span").text(fusen_util.htmlEscape(datum.value.text));
+						$__fusen.find("span").show();
+					});
+				}
+			});
+
+			e.stopPropagation();
+		});
 
     if (fusen_util.getDevice() == "mobile") {
 
@@ -86,6 +120,12 @@
 			self.canvas.css( "width", (self.pos.x + $("#"+self.id).outerWidth())+"px" );
       $("#header").css( "width", (self.pos.x + $("#"+self.id).outerWidth())+"px" );
 		}
+	}
+
+	Fusen.prototype.setText = function(text) {
+		var self = this;
+		self.text = text;
+		$("#" + this.id).find("span").text(self.text);
 	}
 
 	Fusen.prototype.removeSelf = function() {

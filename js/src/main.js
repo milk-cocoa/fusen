@@ -52,7 +52,9 @@ $(function() {
         create_memo(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
     });
     ds.on('set', function(setted) {
-        fusenBuilder.getFusen(setted.id).setPos(setted.value.x, setted.value.y);
+        var fusen = fusenBuilder.getFusen(setted.id);
+        fusen.setPos(setted.value.x, setted.value.y);
+        fusen.setText(setted.value.text);
     });
     ds.on('remove', function(_removed) {
         var removed = _removed;

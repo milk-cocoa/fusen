@@ -6,11 +6,11 @@ milkcocoa.onError(function(err){
 
 milkcocoa.onClosed(function(){
   console.log('closed');
-  setTimeout(function(){
-    milkcocoa.connect(function(){
-      console.log('reconnected');
-    });
-  }, 1000);
+  // setTimeout(function(){
+  //   milkcocoa.connect(function(){
+  //     console.log('reconnected');
+  //   });
+  // }, 1000);
 });
 
 milkcocoa.onConnected(function(){
