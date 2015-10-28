@@ -26,7 +26,7 @@
 		var $_fusen = $("#"+this.id);
 		var fusen_color = $_fusen.css("border-color");
 		var brighter_color = chroma(fusen_color).saturate(2);
-		var darker_color = chroma(fusen_color).darken(2);
+		var darker_color = chroma(fusen_color).darken();
 		var ratio = this.fusenNumber/100;
 		if(ratio > 1) ratio = 1;
 		var new_color = chroma.scale([darker_color, brighter_color])(ratio).hex();
