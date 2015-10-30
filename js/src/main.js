@@ -25,53 +25,56 @@ $(function() {
     });
 
     milkcocoa.onConnected(function(){
-      ds_connection.push({});
       console.log('connected');
     });
 
-    // コネクション数のレンダリングと、コネクション増加時のカウントアップ
-    ds_connection.stream().size(999).next(function(err, data) {
-      var pushed_count = 0;
-      $("title").text("Wowoo - "+data.length+" guys active");
+    // milkcocoaインスタンス生成後、コネクションデータを送信し、その後レンダリングやリスナー設置
+    ds_connection.push({}, function(){
+      // コネクション数のレンダリングと、コネクション増加時のカウントアップ
+      ds_connection.stream().size(999).next(function(err, data) {
+        var pushed_count = 0;
+        console.log(data.length);
+        $("title").text("Wowoo - "+data.length+" guys active");
 
-      // 他者が接続したらリアルタイム更新
-      ds_connection.on("push", function(err, datum){
-        pushed_count++;
-        $("title").text("Wowoo - "+(data.length+pushed_count)+" guys active");
+        // 他者が接続したらリアルタイム更新
+        ds_connection.on("push", function(err, datum){
+          pushed_count++;
+          $("title").text("Wowoo - "+(data.length+pushed_count)+" guys active");
+        });
+
+        // 他者が離脱したらリアルタイム更新
+        ds_connection.on("remove", function(err, datum){
+          pushed_count--;
+          $("title").text("Wowoo - "+(data.length+pushed_count)+" guys active");
+        });
       });
 
-      // 他者が離脱したらリアルタイム更新
-      ds_connection.on("remove", function(err, datum){
-        pushed_count--;
-        $("title").text("Wowoo - "+(data.length+pushed_count)+" guys active");
+      // ユーザーのアクティブ取得
+      var timeout_ids = [];
+      ds_connection.stream().size(999).next(function(err, data) {
+        var first = data.shift();
+        var oldest_count = (first) ? first : {id:""};
+
+        // 常に最新のtimeoutだけが有効になっている
+        $(document).on("keypress mousemove click", function(e){
+          var past_id = timeout_ids.shift();
+          clearTimeout(past_id);
+          var current_id = setTimeout(function(){
+            disconnect_current_connection();
+          }, 30000);
+          timeout_ids.push(current_id);
+        });
+
+        // 画面から離れる際にカウントダウン
+        $(window).on("beforeunload", function(e){
+          disconnect_current_connection();
+        });
+
+        function disconnect_current_connection(){ ds_connection.remove(oldest_count.id); }
       });
 
-    });
-
-    // ユーザーのアクティブ取得
-    var timeout_ids = [];
-    ds_connection.stream().size(999).next(function(err, data) {
-      var oldest_count = data.shift();
-
-      // 常に最新のtimeoutだけが有効になっている
-      $(document).on("keypress mousemove click", function(e){
-        var past_id = timeout_ids.shift();
-        clearTimeout(past_id);
-        var current_id = setTimeout(function(){
-          decrease_count();
-        }, 30000);
-        timeout_ids.push(current_id);
-      });
-
-      // 画面から離れる際にカウントダウン
-      $(window).on("beforeunload", function(e){
-        decrease_count();
-      });
-
-      function decrease_count(){ ds_connection.remove(oldest_count.id); }
     });
     // ここまで
-
 
 
 
