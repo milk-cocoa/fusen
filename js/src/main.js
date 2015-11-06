@@ -129,11 +129,14 @@ $(function() {
         if(!text) {
             return;
         }
+        // fusen_util.copy(text);
         ds.push({
             x : e.pageX,
             y : e.pageY,
             text : fusen_util.htmlEscape(text),
             color : _curClr
+        }, function(e){
+          console.log(e);
         });
     });
 
@@ -155,6 +158,26 @@ $(function() {
             s=s.replace(/>/g,'&gt;');
             s=s.replace(/</g,'&lt;');
             return s;
+        },
+        copy : function (text){
+          // clipboard.jsを使う
+          // promptを使わない
+          document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            if (e.clipboardData) {
+              e.preventDefault();
+              e.clipboardData.setData('text/plain', "Hello");
+            }
+            if (window.clipboardData) {
+              e.returnValue = false;
+              window.clipboardData.setData('text/plain', "World");
+            }
+          }, false);
+
+          $(document).trigger("copy");
+        },
+        userAgent : function(){
+          return window.navigator.userAgent.toLowerCase();
         }
     }
 });
