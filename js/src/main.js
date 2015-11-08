@@ -162,6 +162,7 @@ $(function() {
         copy : function (text){
           // clipboard.jsを使う
           // promptを使わない
+          /*
           document.addEventListener('copy', function(e) {
             e.preventDefault();
             if (e.clipboardData) {
@@ -174,6 +175,7 @@ $(function() {
             }
           }, false);
 
+          */
           $(document).trigger("copy");
         },
         userAgent : function(){
