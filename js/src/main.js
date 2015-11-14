@@ -133,7 +133,7 @@ $(function() {
         ds.push({
             x : e.pageX,
             y : e.pageY,
-            text : fusen_util.htmlEscape(text),
+            text : text,
             color : _curClr
         }, function(e){
           console.log(e);

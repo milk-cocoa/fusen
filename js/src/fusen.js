@@ -14,6 +14,8 @@
 		var found = escapedText.match(r);
 		var url = (found != null) ? found[0] : "";
 		var short_url = url.split(/\/\//)[1];
+
+		// 先にescapeした文章をリンク化しないと、aタグを埋め込めない
 		var linkText = escapedText.replace(r, "<a href='"+url+"' target='_blank'>"+short_url+"</a>" ) ;
 
     if (fusen_util.getDevice() == "mobile") {
@@ -76,7 +78,7 @@
 				if(e.which == 13){
 					self.ds.set(self.id+"", {text: $(this).val()},function(err, datum){
 						$input.hide();
-						$__fusen.find("span").text(fusen_util.htmlEscape(datum.value.text));
+						$__fusen.find("span").text(datum.value.text);
 						$__fusen.find("span").show();
 					});
 				}
