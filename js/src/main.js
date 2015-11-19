@@ -31,19 +31,28 @@ $(function(){
     ds_connection.push({}, function(){
       // コネクション数のレンダリングと、コネクション増加時のカウントアップ
       ds_connection.stream().size(999).next(function(err, data) {
+
+        // 堆積したコネクションを削除
+        var limit = 1000*45;
+        data = data.map(function(datum){
+          var isFresh = (datum.timestamp > data[data.length-1].timestamp - limit);
+          if(!isFresh) ds_connection.remove(datum.id);
+          return isFresh;
+        });
+
         var pushed_count = 0;
-        $("title").text("Wowoo - "+data.length+" guys active");
+        $("title").text("Wowoo("+data.length+")");
 
         // 他者が接続したらリアルタイム更新
         ds_connection.on("push", function(err, datum){
           pushed_count++;
-          $("title").text("Wowoo - "+(data.length+pushed_count)+" guys active");
+          $("title").text("Wowoo("+(data.length+pushed_count)+")");
         });
 
         // 他者が離脱したらリアルタイム更新
         ds_connection.on("remove", function(err, datum){
           pushed_count--;
-          $("title").text("Wowoo - "+(data.length+pushed_count)+" guys active");
+          $("title").text("Wowoo("+(data.length+pushed_count)+")");
         });
       });
 
@@ -149,7 +158,6 @@ $(function(){
                 color : _curClr
             }, function(e){
               removeBalloon();
-              console.log(e);
             });
           }
         });
@@ -232,7 +240,6 @@ $(function(){
     					if ( _t.match(hash_regexp) ) {
     						var url = location.href + _t;
     						_t = _t.replace(hash_regexp, "<a href='"+url+"' target='_blank'>"+_t+"</a>");
-    						console.log(_t);
     					}
     					return _t;
     				}).join(" ");
