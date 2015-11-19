@@ -1,8 +1,7 @@
-$(function() {
+$(function(){
     $(window).on("hashchange", function(){
       location.reload();
     });
-
 
     var ua = navigator.userAgent;
     var ds = milkcocoa.dataStore('fusen');
@@ -33,7 +32,6 @@ $(function() {
       // コネクション数のレンダリングと、コネクション増加時のカウントアップ
       ds_connection.stream().size(999).next(function(err, data) {
         var pushed_count = 0;
-        console.log(data.length);
         $("title").text("Wowoo - "+data.length+" guys active");
 
         // 他者が接続したらリアルタイム更新
@@ -57,6 +55,7 @@ $(function() {
 
         // 常に最新のtimeoutだけが有効になっている
         $(document).on("keypress mousemove click", function(e){
+          e.stopPropagation();
           var past_id = timeout_ids.shift();
           clearTimeout(past_id);
           var current_id = setTimeout(function(){
@@ -124,21 +123,50 @@ $(function() {
     }
 
     canvas.click(function(e) {
-        var text = prompt("メモを入力してください。");
-        var _curClr = curClr;
-        if(!text) {
-            return;
-        }
-        // fusen_util.copy(text);
-        ds.push({
-            x : e.pageX,
-            y : e.pageY,
-            text : text,
-            color : _curClr
-        }, function(e){
-          console.log(e);
+        e.stopPropagation();
+        var offset_x = e.offsetX;
+        var offset_y = e.offsetY;
+        var page_x = e.pageX;
+        var page_y = e.pageY;
+
+        $(".posting-balloon").remove();
+        $(this).append('<div class="posting-balloon" style="left:'+(offset_x-85)+'px; top:'+(offset_y-45)+'px;"><input type="text" /></div>');
+
+        var $input = $(".posting-balloon > input");
+        $input.focus();
+        $input.off("keypress").on("keypress", function(e){
+          if(e.which === 13){
+            var text = $(this).val();
+            var _curClr = curClr;
+            if(!text) {
+                return;
+            }
+            // fusen_util.copy(text);
+            ds.push({
+                x : page_x-53,
+                y : page_y-45,
+                text : text,
+                color : _curClr
+            }, function(e){
+              removeBalloon();
+              console.log(e);
+            });
+          }
         });
+
+        // 吹き出しを消す
+        removeBalloonOnESC()
+
+        function removeBalloonOnESC(){
+          $(document).off("keyup").on("keyup", function(e) {
+             if (e.keyCode == 27) removeBalloon();
+          });
+        }
+        function removeBalloon(){
+          $(".posting-balloon").remove();
+        }
     });
+
 
     $("#replay").click(function(e){
       fusenBuilder.replay(function(fusensByOrder){
@@ -180,6 +208,37 @@ $(function() {
         },
         userAgent : function(){
           return window.navigator.userAgent.toLowerCase();
-        }
+        },
+    		linknize : function (escapedText) {
+    		  // とりあえず高階関数で実装
+    			var http_regexp = /https?:\/\/.+(\ |$)/;
+    			var linkedText = escapedText.split(" ").map(function(_t){
+    				var found = _t.match(http_regexp);
+    				if (found) {
+    					var url = found[0];
+    					var short_url = url.split(/\/\//)[1];
+    					var _t = _t.replace(http_regexp, "<a href='"+url+"' target='_blank'>"+short_url+"</a>" ) ;
+    				}
+    				return _t;
+    			}).join(" ");
+
+    			linkedText = hashnize(linkedText);
+    			return linkedText;
+
+    			function hashnize(linkedText) {
+    				// hashをリンク化
+    				var hash_regexp = /^#.+/;
+    				var hashedText = linkedText.split(" ").map(function(_t){
+    					if ( _t.match(hash_regexp) ) {
+    						var url = location.href + _t;
+    						_t = _t.replace(hash_regexp, "<a href='"+url+"' target='_blank'>"+_t+"</a>");
+    						console.log(_t);
+    					}
+    					return _t;
+    				}).join(" ");
+    				return hashedText;
+    			}
+    		}
+
     }
 });

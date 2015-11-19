@@ -11,8 +11,8 @@
 }
 /* theme */
 .theme-husen--one {
-    color: #c9cfd6;
-    border-color: #c9cfd6;
+    color: gray;
+    border-color: gray;
 }
 .theme-husen--two {
     color: #0fbd8b;
@@ -35,8 +35,8 @@
     border-color: #f78ba7;
 }
 
-.theme-colorlist__item--one{border-color: #c9cfd6}
-.theme-colorlist__item--one.is-active{background-color: #c9cfd6}
+.theme-colorlist__item--one{border-color: gray}
+.theme-colorlist__item--one.is-active{background-color: gray}
 .theme-colorlist__item--two{border-color: #0fbd8b}
 .theme-colorlist__item--two.is-active{background-color: #0fbd8b}
 .theme-colorlist__item--three{border-color: #e7755e}

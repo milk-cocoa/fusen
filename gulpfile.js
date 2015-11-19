@@ -4,7 +4,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 
 gulp.task('js-task',function(){
-    return gulp.src('js/src/*.js')
+    return gulp.src('js/src/**/*.js')
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('app/jsmin/'));
@@ -23,8 +23,8 @@ gulp.task('webserver', function() {
 });
 
 gulp.task("watch",function(){
-    return gulp.watch("js/src/*.js",["js-task"]);
+    return gulp.watch("js/src/**/*.js", ["js-task"]);
 });
 
-gulp.task("default",["webserver","js-task","js-lib-task"]);
+gulp.task("default",["webserver","js-task","js-lib-task", "watch"]);
 gulp.task("build",["js-task","js-lib-task"]);

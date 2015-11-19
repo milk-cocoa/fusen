@@ -4,6 +4,7 @@ html{
     -webkit-text-size-adjust:100%;
     -ms-text-size-adjust:100%
 }
+
 body{
     font-family:"游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Arial,sans-serif;
     font-size: 14px;
@@ -13,11 +14,13 @@ body{
     background-image: url("../images/bg_check.png");
     background-size: 16px 16px;
 }
+
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
   display: block;
 }
 a {
   background: transparent;
+  text-decoration:none;
 }
 b, strong {
   font-weight: bold;
@@ -72,6 +75,10 @@ input::-moz-focus-inner {
 }
 input {
   line-height: normal;
+  width: 100%;
+  outline: 0;
+  border-color: white;
+  border: 0px;
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -135,7 +142,7 @@ textarea {
     }
         .p-header__logo__img{
             margin-top: 16px;
-            margin-left: 1.5em;
+            margin-left: 1.1em;
             display: inline-block;
             vertical-align: middle;
         }
@@ -219,7 +226,7 @@ textarea {
     width: 100px;
     position: absolute;
     background: white;
-    padding: 8px 12px;
+    padding: 4px 6px; /* 8px 12px; */
     border-style: solid;
 }
     .p-husen__cross{
