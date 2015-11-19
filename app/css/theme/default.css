@@ -1,5 +1,17 @@
 /* fix */
 .p-husen__cross{color: inherit;}
+.p-husen__star-ever{
+  color: gray;
+  cursor: pointer;
+  float: right;
+  padding-right: 5px;
+}
+.p-husen__star-pushed{
+  color: gold;
+  cursor: pointer;
+  float: right;
+  padding-right: 5px;
+}
 
 .p-husen{
     border-width: 1px;
