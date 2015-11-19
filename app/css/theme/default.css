@@ -4,13 +4,11 @@
   color: gray;
   cursor: pointer;
   float: right;
-  padding-right: 5px;
 }
 .p-husen__star-pushed{
   color: gold;
   cursor: pointer;
   float: right;
-  padding-right: 5px;
 }
 
 .p-husen{
