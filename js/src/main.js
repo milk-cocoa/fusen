@@ -9,6 +9,7 @@ $(function(){
     var room = "";
     if(location.hash) room = location.hash.slice(1);
     if(room != "") ds = ds.child(room);
+    else room = "sandbox";
     $("#title").text(room);
 
     /*
@@ -16,15 +17,21 @@ $(function(){
     */
     var ds_connection = milkcocoa.dataStore("connection_count").child(room);
     milkcocoa.onError(function(err){
-      console.log(err);
+      $(".toast-error").off().click(function(e){
+        location.reload();
+      });
+      toastr.error('Disconnected! Click here!');
     });
 
     milkcocoa.onClosed(function(){
-      console.log('closed');
+      $(".toast-error").off().click(function(e){
+        location.reload();
+      });
+      toastr.error('Disconnected! Click here!');
     });
 
     milkcocoa.onConnected(function(){
-      console.log('connected');
+      toastr.info('connected 🐶');
     });
 
     // milkcocoaインスタンス生成後、コネクションデータを送信し、その後レンダリングやリスナー設置
@@ -42,17 +49,20 @@ $(function(){
 
         var pushed_count = 0;
         $("title").text("Wowoo("+data.length+")");
+        $("#title").text(room+"("+data.length+")");
 
         // 他者が接続したらリアルタイム更新
         ds_connection.on("push", function(err, datum){
           pushed_count++;
           $("title").text("Wowoo("+(data.length+pushed_count)+")");
+          $("#title").text(room+"("+data.length+")");
         });
 
         // 他者が離脱したらリアルタイム更新
         ds_connection.on("remove", function(err, datum){
           pushed_count--;
           $("title").text("Wowoo("+(data.length+pushed_count)+")");
+          $("#title").text(room+"("+data.length+")");
         });
       });
 
@@ -132,46 +142,50 @@ $(function(){
     }
 
     canvas.click(function(e) {
+        var $self = $(this);
         e.stopPropagation();
+
         var offset_x = e.offsetX;
         var offset_y = e.offsetY;
         var page_x = e.pageX;
         var page_y = e.pageY;
 
-        $(".posting-balloon").remove();
-        $(this).append('<div class="posting-balloon" style="left:'+(offset_x-85)+'px; top:'+(offset_y-45)+'px;"><input type="text" /></div>');
-
-        var $input = $(".posting-balloon > input");
-        $input.focus();
-        $input.off("keypress").on("keypress", function(e){
-          if(e.which === 13){
-            var text = $(this).val();
-            var _curClr = curClr;
-            if(!text) {
-                return;
-            }
-            // fusen_util.copy(text);
-            ds.push({
-                x : page_x-53,
-                y : page_y-45,
-                text : text,
-                color : _curClr
-            }, function(e){
-              removeBalloon();
-            });
-          }
+        generateBalloon(function(text){
+          ds.push({
+              x : page_x-53,
+              y : page_y-45,
+              text : text,
+              color : curClr
+          }, function(e){
+            if(device == "pc") fusen_util.removeBalloon();
+          });
         });
 
-        // 吹き出しを消す
-        removeBalloonOnESC()
 
-        function removeBalloonOnESC(){
-          $(document).off("keyup").on("keyup", function(e) {
-             if (e.keyCode == 27) removeBalloon();
-          });
-        }
-        function removeBalloon(){
-          $(".posting-balloon").remove();
+        function generateBalloon(cb){
+          var text = "";
+          if(device == "mobile"){
+            text = prompt("メモを入力してください");
+            cb(text);
+          } else {
+            $(".posting-balloon").remove();
+            $self.append('<div class="posting-balloon" style="left:'+(offset_x-85)+'px; top:'+(offset_y-45)+'px;"><input type="text" /></div>');
+
+            var $input = $(".posting-balloon > input");
+            $input.focus();
+            $input.off("keypress").on("keypress", function(e){
+              if(e.which === 13){
+                text = $(this).val();
+                if(!text) {
+                    return;
+                }
+                cb(text);
+              }
+            });
+
+            // 吹き出しを消す
+            fusen_util.removeBalloonOnESC()
+          }
         }
     });
 
@@ -245,7 +259,16 @@ $(function(){
     				}).join(" ");
     				return hashedText;
     			}
-    		}
+    		},
+        removeBalloonOnESC : function (){
+          $(document).off("keyup").on("keyup", function(e) {
+             if (e.keyCode == 27) removeBalloon();
+          });
+        },
+        removeBalloon : function (){
+          $(".posting-balloon").remove();
+        }
+
 
     }
 });

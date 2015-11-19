@@ -210,6 +210,7 @@
 				'data-fusenNumber="'+self.fusenNumber+'">'+
 				'<span>'+self.linkedText+'</span>'+
 				'<input type="text" style="display:none;" />'+
+				'<div class="p-husen__star-ever">★</div>'+
 			'</div>';
 	}
 
