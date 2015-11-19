@@ -270,7 +270,7 @@ $(function(){
     		},
         removeBalloonOnESC : function (){
           $(document).off("keyup").on("keyup", function(e) {
-             if (e.keyCode == 27) removeBalloon();
+             if (e.keyCode == 27) fusen_util.removeBalloon();
           });
         },
         removeBalloon : function (){
