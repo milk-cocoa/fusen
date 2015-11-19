@@ -9,8 +9,14 @@ $(function(){
     var room = "";
     if(location.hash) room = location.hash.slice(1);
     if(room != "") ds = ds.child(room);
-    else room = "sandbox";
-    $("#title").text(room);
+    $("#title").val(room);
+
+    // titleの場所で板移動
+    $("#title").keypress(function(e){
+      if(e.which == 13){
+        location.hash = "#"+$(this).val();
+      }
+    });
 
     /*
     * 同時接続数を取得するロジック
@@ -49,20 +55,17 @@ $(function(){
 
         var pushed_count = 0;
         $("title").text("Wowoo("+data.length+")");
-        $("#title").text(room+"("+data.length+")");
 
         // 他者が接続したらリアルタイム更新
         ds_connection.on("push", function(err, datum){
           pushed_count++;
           $("title").text("Wowoo("+(data.length+pushed_count)+")");
-          $("#title").text(room+"("+data.length+")");
         });
 
         // 他者が離脱したらリアルタイム更新
         ds_connection.on("remove", function(err, datum){
           pushed_count--;
           $("title").text("Wowoo("+(data.length+pushed_count)+")");
-          $("#title").text(room+"("+data.length+")");
         });
       });
 

@@ -128,6 +128,16 @@ textarea {
 #sidebar{z-index: 5}
 
 
+/* TITLE */
+#title {
+  display: inline;
+  border: 1px solid lightgray;
+  width: 200px;
+}
+/* TITLE */
+
+
+
 /* HEADER */
 #header{
     position: relative;
