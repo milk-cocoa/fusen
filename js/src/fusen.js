@@ -39,7 +39,8 @@
       stop: function() {
         self.ds.set(self.id, {
           x : self.pos.x,
-          y : self.pos.y
+          y : self.pos.y,
+					text : $("#"+self.id+" span:first").text()
         });
         self.setPos(self.pos.x, self.pos.y);
       }
@@ -115,7 +116,7 @@
 		var self = this;
 		self.pos.x = x;
 		self.pos.y = y;
-		$("#" + this.id).offset({top : self.pos.y, left : self.pos.x});
+		$("#" + self.id).offset({top : self.pos.y, left : self.pos.x});
 
 		if( (self.pos.y + $("#"+self.id).height()) > self.canvas.height()){
 			self.canvas.css( "height", (self.pos.y + $("#"+self.id).outerHeight())+"px" );
