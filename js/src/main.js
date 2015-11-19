@@ -166,6 +166,10 @@ $(function(){
           var text = "";
           if(device == "mobile"){
             text = prompt("メモを入力してください");
+            if(!text) {
+              toastr.error("Blank text🐶");
+              return;
+            }
             cb(text);
           } else {
             $(".posting-balloon").remove();
@@ -177,7 +181,8 @@ $(function(){
               if(e.which === 13){
                 text = $(this).val();
                 if(!text) {
-                    return;
+                  toastr.error("Blank text🐶");
+                  return;
                 }
                 cb(text);
               }
