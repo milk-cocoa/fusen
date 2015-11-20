@@ -17,7 +17,6 @@ $(function(){
       m: pad( (new Date()).getMonth()+1 ),
       d: pad( (new Date()).getDate() )
     }
-    console.log(today);
 
     $("#title").attr("placeholder", "例) <your name>_"+today.m+today.d+"_todo")
 
@@ -51,17 +50,11 @@ $(function(){
         else _room = "__root__";
 
         var ds_room = milkcocoa.dataStore("rooms");
-        ds_room.stream({id:_room}).size(1).next(function(err, room_data){
-          var access = 0;
-          if(room_data.length > 0) room_data = room_data[0];
-          if(data && data.hasOwnProperty("value") && data.value.hasOwnProperty("access")) {
-            access = data.value.access;
-          }
-          access++;
-          ds_room.set(_room, {connection: data.length, access: access, updated_at: Date.now()},
+        ds_room.get(_room, function(err, room_data){
+          room_data.value.access++;
+          ds_room.set(_room, {connection: data.length, access: room_data.value.access, updated_at: Date.now()},
             function(err, datum){
               // 成功時
-              console.log(err, datum);
             },
             function(err, datum){
               // セキュリティや制限のエラー
