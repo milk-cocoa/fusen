@@ -2,8 +2,7 @@ $(function(){
   milkcocoa.dataStore("rooms").stream().size(999).next(function(err, data){
     $("body").append("<ul></ul>");
     data.map(function(datum, i){
-      console.log(datum.timestamp);
-      $("body ul").append("<li>"+(i+1)+". "+datum.id+"("+datum.value.connection+")   made: "+jptime( new Date(datum.timestamp) )+", updated: "+jptime( new Date(datum.updated_at) )+"</li>");
+      $("body ul").append("<li>"+(i+1)+". "+datum.id+"("+datum.value.connection+"/"+datum.value.access+")   made: "+jptime( new Date(datum.timestamp) )+", updated: "+jptime( new Date(datum.value.updated_at) )+"</li>");
       return "";
     });
   });

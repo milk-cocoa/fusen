@@ -41,14 +41,23 @@ $(function(){
         if(room != "") _room = room;
         else _room = "__room__";
 
-        milkcocoa.dataStore("rooms").set(_room, {connection: data.length, updated_at: Date.now()},
-        function(err, datum){
-          // 成功時
-          console.log(err, datum);
-        },
-        function(err, datum){
-          // セキュリティや制限のエラー
-          toast.error("セキュリティおよび負荷の理由で接続に失敗しました");
+        var ds_room = milkcocoa.dataStore("rooms");
+        ds_room.get(_room, function(err, data){
+          var access = 0;
+          if(data && data.value.access) {
+            access = data.value.access;
+          }
+          access++;
+          ds_room.set(_room, {connection: data.length, access: access, updated_at: Date.now()},
+            function(err, datum){
+              // 成功時
+              console.log(err, datum);
+            },
+            function(err, datum){
+              // セキュリティや制限のエラー
+              toast.error("セキュリティおよび負荷の理由で接続に失敗しました");
+            }
+          );
         });
 
         // コネクションを表示
