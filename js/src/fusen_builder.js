@@ -7,6 +7,21 @@
 		this.fusensByOrder = [];
 	}
 
+	FusenBuilder.prototype.render = function(id, x, y, _text, color){
+    var text = _text || "";
+    var fusen = this.createFusen(id, text, color);
+    fusen.setPos(x, y);
+    return fusen;
+	}
+
+	FusenBuilder.prototype.renderWithListener = function(id, x, y, _text, color){
+    var text = _text || "";
+    var fusen = this.createFusen(id, text, color);
+    fusen.setPos(x, y);
+		fusen.setAllListeners();
+    return fusen;
+	}
+
 	FusenBuilder.prototype.getFusen = function(id) {
 		return this.fusens[id];
 	}

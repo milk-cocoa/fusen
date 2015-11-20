@@ -19,101 +19,125 @@
       this.canvas.append( self.pchtml() );
     }
 
-		// 色を深める
-		// self.colorAdjust();
-
-		// 削除ボタン
-    var cross = $(".p-husen__cross", "#"+this.id);
-
-		self.favoriteListener();
-
-		// ドラッグボタン
-    $("#"+self.id).draggable({
-      start: function() {
-      },
-      drag: function() {
-				var pos = $("#"+self.id).position();
-        self.pos.x = $("#"+self.id).offset().left;
-        self.pos.y = $("#"+self.id).offset().top;
-      },
-      stop: function() {
-        self.ds.set(self.id, {
-          x : self.pos.x,
-          y : self.pos.y,
-					text : $("#"+self.id+" span:first").text()
-        });
-        self.setPos(self.pos.x, self.pos.y);
-      }
-    });
-
-
-		// ばってんクリック時の削除処理
-    cross.click(function(e) {
-      self.ds.remove(self.id);
-      e.stopPropagation();
-    });
-
-		// 付箋クリック時の編集処理(タッチ端末未実装)
-		// 「再生」後の付箋は不可っぽい
-		$("#"+self.id).click(function(e){
-			e.stopPropagation();
-			$self = $(this);
-			var when_clicked_text = $self.find("span").text();
-			$self.find("span").hide();
-			$input = $self.find("input");
-			$input.val(when_clicked_text);
-			$input.css("display", "inline");
-			$input.focus();
-			$input.off("keyup").on("keyup", function(e){
-				$_input = $(this);
-				var when_entered_text = $_input.val();
-
-				// ENTER
-				if(e.which == 13){
-					self.ds.set(self.id+"", {text: when_entered_text},function(err, datum){
-						hideInput(when_entered_text);
-					});
-				}
-
-				// ESC
-       	if (e.which == 27) {
-					hideInput(when_clicked_text);
-				}
-
-				function hideInput(text) {
-					$input.hide();
-					$self.find("span").text(text);
-					$self.find("span").show();
-				}
-			});
-
-			e.stopPropagation();
-		});
-
-    if (fusen_util.getDevice() == "mobile") {
-
-      var interval = 720;
-
-      $("#"+self.id).bind( "touchstart", function(e){
-        timer = setTimeout( function(){
-          if ( confirm("このメッセージを削除しますか？") === true ){
-            self.ds.remove(self.id);
-          }
-        }, interval );
-
-        function clearFunction(){
-          clearTimeout( timer );
-        }
-
-        $("#"+self.id).bind( "touchend touchmove touchcancel", clearFunction );
-        e.stopPropagation();
-      });
-
-    }
 	}
+
+	Fusen.prototype.setAllListeners = function(){
+		var self = this;
+    self.setEditListener();
+    self.setFavoriteListener();
+    self.setDragListener();
+    self.setCrossListener();
+    if (fusen_util.getDevice() == "mobile") self.setMobileDelete();
+	}
+			/*
+			* Private Listeners
+			*/
+			Fusen.prototype.setMobileDelete = function(){
+		    var interval = 720;
+
+		    $("#"+self.id).bind( "touchstart", function(e){
+		      timer = setTimeout( function(){
+		        if ( confirm("このメッセージを削除しますか？") === true ){
+		          self.ds.remove(self.id);
+		        }
+		      }, interval );
+
+		      function clearFunction(){
+		        clearTimeout( timer );
+		      }
+
+		      $("#"+self.id).bind( "touchend touchmove touchcancel", clearFunction );
+		      e.stopPropagation();
+		    });
+
+			}
+
+			Fusen.prototype.setEditListener = function(){
+				var self = this;
+
+				// 「再生」後の付箋は不可っぽい
+				$("#"+self.id).click(function(e){
+					e.stopPropagation();
+
+					$self = $(this);
+					var when_clicked_text = $self.find("span").text();
+					$self.find("span").hide();
+					$input = $self.find("input");
+					$input.val(when_clicked_text);
+					$input.css("display", "inline");
+					$input.focus();
+					$input.off("keyup").on("keyup", function(e){
+						$_input = $(this);
+						var when_entered_text = $_input.val();
+
+						// ENTER
+						if(e.which == 13){
+							self.ds.set(self.id+"", {text: when_entered_text},function(err, datum){
+								hideInput(when_entered_text);
+							});
+						}
+
+						// ESC
+		       	if (e.which == 27) {
+							hideInput(when_clicked_text);
+						}
+
+						function hideInput(text) {
+							$input.hide();
+							$self.find("span").text(text);
+							$self.find("span").show();
+						}
+					});
+
+				});
+			}
+
+			Fusen.prototype.setCrossListener = function(){
+				var self = this;
+
+				// 削除ボタン
+		    var cross = $(".p-husen__cross", "#"+this.id);
+				// ばってんクリック時の削除処理
+		    cross.click(function(e) {
+		      self.ds.remove(self.id);
+		      e.stopPropagation();
+		    });
+			}
+
+			Fusen.prototype.setDragListener = function(){
+				var self = this;
+
+				// ドラッグボタン
+				var zoom = ($('.body-zoom').css('zoom')) ? $('.body-zoom').css('zoom') : 1;
+				var factor = ((1 / zoom) -1);
+		    $("#"+self.id).draggable({
+		      start: function() {
+		      },
+		      drag: function(e, ui) {
+						var pos = ui.position;
+
+						// 変換前にオブジェクトに保存してはいけない
+		        ui.position.top += Math.round((ui.position.top - ui.originalPosition.top) * factor);
+		        ui.position.left += Math.round((ui.position.left - ui.originalPosition.left) * factor);
+
+						// 変換後にオブジェクトに保存すると健全
+		        self.pos.x = ui.position.left;
+		        self.pos.y = ui.position.top;
+		      },
+		      stop: function(e, ui) {
+		        self.ds.set(self.id, {
+		          x : self.pos.x,
+		          y : self.pos.y,
+							text : $("#"+self.id+" span:first").text()
+		        });
+		        self.setPos(self.pos.x, self.pos.y);
+		      }
+		    });
+			}
 
 	Fusen.prototype.setPos = function(x, y) {
 		var self = this;
+
 		self.pos.x = x;
 		self.pos.y = y;
 		$("#" + self.id).offset({top : self.pos.y, left : self.pos.x});
@@ -165,7 +189,7 @@
 			'</div>';
 	}
 
-	Fusen.prototype.favoriteListener = function () {
+	Fusen.prototype.setFavoriteListener = function () {
 		var self = this;
 		var ds_star = milkcocoa.dataStore("fusen-stars__"+self.id);
 		ds_star.stream().size(999).next(function(err, data) {
