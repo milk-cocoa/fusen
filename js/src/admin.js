@@ -3,7 +3,7 @@ $(function(){
     $("body").append("<ul></ul>");
     data.map(function(datum, i){
       console.log(datum.timestamp);
-      $("body ul").append("<li>"+(i+1)+". "+datum.id+"("+datum.value.connection+") "+jptime( new Date(datum.timestamp) )+"</li>");
+      $("body ul").append("<li>"+(i+1)+". "+datum.id+"("+datum.value.connection+")   made: "+jptime( new Date(datum.timestamp) )+", updated: "+jptime( new Date(datum.updated_at) )+"</li>");
       return "";
     });
   });

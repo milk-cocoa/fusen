@@ -41,7 +41,7 @@ $(function(){
         if(room != "") _room = room;
         else _room = "__room__";
 
-        milkcocoa.dataStore("rooms").set(_room, {connection: data.length},
+        milkcocoa.dataStore("rooms").set(_room, {connection: data.length, updated_at: Date.now()},
         function(err, datum){
           // 成功時
           console.log(err, datum);
