@@ -138,7 +138,7 @@ $(function(){
         }
 
         // 付箋設置後に、スマホならズーム
-        if(device == "mobile") fusen_util.zoomIn(2.0);
+        // if(device == "mobile") fusen_util.zoomIn(2.0);
         // ズームすると確かに使いやすいが、移動や投稿の照準が定まらない
     });
     ds.on('push', function(pushed) {
