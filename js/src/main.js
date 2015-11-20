@@ -48,12 +48,13 @@ $(function(){
         // 部屋とコネクションを記録
         var _room;
         if(room != "") _room = room;
-        else _room = "__room__";
+        else _room = "__root__";
 
         var ds_room = milkcocoa.dataStore("rooms");
-        ds_room.get(_room, function(err, data){
+        ds_room.stream({id:_room}).size(1).next(function(err, room_data){
           var access = 0;
-          if(data && data.value.access) {
+          if(room_data.length > 0) room_data = room_data[0];
+          if(data && data.hasOwnProperty("value") && data.value.hasOwnProperty("access")) {
             access = data.value.access;
           }
           access++;

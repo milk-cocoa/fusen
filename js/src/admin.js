@@ -1,26 +1,36 @@
 $(function(){
   milkcocoa.dataStore("rooms").stream().size(999).next(function(err, data){
     $("body").append("<ul></ul>");
+
+    // 部屋を回す
+
     data.map(function(datum, i){
-      $("body ul").append("<li>"+(i+1)+". "+datum.id+"("+datum.value.connection+"/"+datum.value.access+")   made: "+jptime( new Date(datum.timestamp) )+", updated: "+jptime( new Date(datum.value.updated_at) )+"</li>");
+
+      // 部屋名から付箋をとる
+      var room = "fusen";
+      if(datum.id != "__root__") room += "/"+datum.id;
+      milkcocoa.dataStore(room).stream().size(999).next(function(err, fusens){
+        $("body ul").append("<li data-board_id='"+datum.id+"'>"+(i+1)+". "+datum.id+"(c:"+datum.value.connection+", a:"+datum.value.access+", p:"+fusens.length+") ----------------------- "+jptime( new Date(datum.timestamp) )+", "+jptime( new Date(datum.value.updated_at) )+"</li>");
+      });
       return "";
     });
   });
 });
 
 function jptime(myD){
-  myTbl=new Array("日","月","火","水","木","金","土");
-  myYear=myD.getYear();
-  myYear4=(myYear < 2000) ? myYear+1900 : myYear;
   myMonth=myD.getMonth() + 1;
   myDate=myD.getDate();
-  myDay=myD.getDay();
+
   myHours=myD.getHours();
   myMinutes=myD.getMinutes();
-  mySeconds=myD.getSeconds();
-  myMess1=myYear4 + "年" + myMonth + "月" + myDate + "日";
-  myMess2=myTbl[myDay] + "曜日";
-  myMess3=myHours + "時" + myMinutes + "分";
-  myMess=myMess1 + " " + myMess2 + " " + myMess3;
-  return myMess;
+
+  return myMonth+"/"+myDate+" "+myHours+":"+myMinutes;
 }
+
+function sum(arr) {
+    if (arr.length > 0) {
+      return arr.reduce(function(prev, current, i, arr) {
+          return prev+current;
+      });
+    } else return 0;
+};
