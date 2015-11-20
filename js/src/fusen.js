@@ -197,6 +197,7 @@
 	Fusen.prototype.setFavoriteListener = function () {
 		var self = this;
 		var ds_star = milkcocoa.dataStore("fusen-stars__"+self.id);
+
 		ds_star.stream().size(999).next(function(err, data) {
 			var $star = $("#"+self.id).find(".p-husen__star-ever");
 			if(data.length > 0){
@@ -208,7 +209,7 @@
 
 
 		ds_star.on("push", function(data){
-			var $star = $("#"+self.id).find(".p-husen__star-pushed");
+			var $star = $("#"+self.id).find("[class^='p-husen__star-']");
 			var num = parseInt( $star.text().substr(1) );
 			$star.text("★"+(num+1));
 		});
