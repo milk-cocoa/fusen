@@ -69,6 +69,10 @@
 						$input.val(when_clicked_text);
 						$input.css("display", "inline");
 						$input.focus();
+
+						$input.off("blur").on("blur", function(e){
+							hideInput();
+						});
 						$input.off("keyup").on("keyup", function(e){
 							$_input = $(this);
 							var when_entered_text = $_input.val();
@@ -82,11 +86,11 @@
 
 							// ESC
 			       	if (e.which == 27) hideInput();
-							function hideInput() {
-								$input.hide();
-								$self.html($el_acm);
-							}
 						});
+						function hideInput() {
+							$input.hide();
+							$self.html($el_acm);
+						}
 					}
 				});
 				$("#"+self.id).find("a").click(function(e){ e.stopPropagation(); });
