@@ -169,7 +169,12 @@
 		var self = this;
 		var ds_star = milkcocoa.dataStore("fusen-stars__"+self.id);
 		ds_star.stream().size(999).next(function(err, data) {
-			$("#"+self.id).find(".p-husen__star-ever").text("★"+data.length);
+			var $star = $("#"+self.id).find(".p-husen__star-ever");
+			if(data.length > 0){
+				$star.removeClass("p-husen__star-ever");
+				$star.addClass("p-husen__star-pushed");
+			}
+			$star.text("★"+data.length);
 		});
 
 
