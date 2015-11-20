@@ -138,7 +138,7 @@ $(function(){
         }
 
         // 付箋設置後に、スマホならズーム
-        // if(device == "mobile") fusen_util.zoomIn(2.0);
+        if(device == "mobile") fusen_util.zoomIn(2.0);
         // ズームすると確かに使いやすいが、移動や投稿の照準が定まらない
     });
     ds.on('push', function(pushed) {
@@ -295,7 +295,10 @@ $(function(){
         zoomIn : function (zoomLev) {
             if (zoomLev > 1) {
                 if (typeof (document.body.style.zoom) != "undefined") {
-                    $(document.body).css('zoom', zoomLev);
+                    //$(document.body).css('zoom', zoomLev);
+                    $(document.body).css('transform', "scale("+zoomLev+")");
+                    var rate = ( (zoomLev - 1) * 100 ) + "%";
+                    $(document.body).css('transform-origin', rate+" "+rate);
                 }else {
                     // Mozilla doesn't support zoom, use -moz-transform to scale and compensate for lost width
                     $('#divWrap').css({
