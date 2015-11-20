@@ -146,9 +146,6 @@ $(function(){
           var fusen = fusens[i];
 		      fusen.setAllListeners();
         }
-
-        // リンクのサムネイルをhover時に出す
-        $("a").setThumbnailListener();
     });
     ds.on("push", function(pushed) {
         fusenBuilder.renderWithListener(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);

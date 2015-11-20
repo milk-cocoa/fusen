@@ -163,6 +163,9 @@
 		var self = this;
 
 		$("#" + this.id).find("span").html(self.linkedText);
+
+    // リンクのサムネイルをhover時に出す
+    $("a").setThumbnailListener();
 	}
 
 	Fusen.prototype.removeSelf = function() {
