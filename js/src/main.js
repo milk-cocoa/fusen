@@ -146,15 +146,21 @@ $(function(){
           var fusen = fusens[i];
 		      fusen.setAllListeners();
         }
+
+        // リンクのサムネイルをhover時に出す
+        $("a").setThumbnailListener();
     });
-    ds.on('push', function(pushed) {
+    ds.on("push", function(pushed) {
         fusenBuilder.renderWithListener(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
+        $("a").setThumbnailListener();
     });
+
     ds.on('set', function(setted) {
         var fusen = fusenBuilder.getFusen(setted.id);
         fusen.setPos(setted.value.x, setted.value.y);
         fusen.setText(setted.value.text);
     });
+
     ds.on('remove', function(_removed) {
         var removed = _removed;
         fusenBuilder.getFusen(removed.id).removeSelf();

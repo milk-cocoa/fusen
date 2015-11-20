@@ -113,7 +113,6 @@
 
 				// ドラッグボタン
 				var zoom = ($('.body-zoom').css('zoom')) ? $('.body-zoom').css('zoom') : 1;
-				console.log(zoom);
 				var factor = ((1 / zoom) -1);
 		    $("#"+self.id).draggable({
 		      start: function(e, ui) {
