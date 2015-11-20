@@ -11,6 +11,7 @@
 		this.canvas = canvas;
 		this.fusenNumber = fusenNumber;
 		this.$el_fusen = $("#"+self.id);
+		this.dragging = false;
 
 		// 削除ボタンのレイアウト等
     if (fusen_util.getDevice() == "mobile") {
@@ -59,36 +60,37 @@
 				$("#"+self.id).click(function(e){
 					e.stopPropagation();
 
-					$self = $(this);
-					var when_clicked_text = $self.find("span").text();
-					$self.find("span").hide();
-					$input = $self.find("input");
-					$input.val(when_clicked_text);
-					$input.css("display", "inline");
-					$input.focus();
-					$input.off("keyup").on("keyup", function(e){
-						$_input = $(this);
-						var when_entered_text = $_input.val();
+					if(self.dragging == false){
+						$self = $(this);
+						var when_clicked_text = $self.find("span").text();
+						$self.find("span").hide();
+						$input = $self.find("input");
+						$input.val(when_clicked_text);
+						$input.css("display", "inline");
+						$input.focus();
+						$input.off("keyup").on("keyup", function(e){
+							$_input = $(this);
+							var when_entered_text = $_input.val();
 
-						// ENTER
-						if(e.which == 13){
-							self.ds.set(self.id+"", {text: when_entered_text},function(err, datum){
-								hideInput(when_entered_text);
-							});
-						}
+							// ENTER
+							if(e.which == 13){
+								self.ds.set(self.id+"", {text: when_entered_text},function(err, datum){
+									hideInput(when_entered_text);
+								});
+							}
 
-						// ESC
-		       	if (e.which == 27) {
-							hideInput(when_clicked_text);
-						}
+							// ESC
+			       	if (e.which == 27) {
+								hideInput(when_clicked_text);
+							}
 
-						function hideInput(text) {
-							$input.hide();
-							$self.find("span").text(text);
-							$self.find("span").show();
-						}
-					});
-
+							function hideInput(text) {
+								$input.hide();
+								$self.find("span").text(text);
+								$self.find("span").show();
+							}
+						});
+					}
 				});
 			}
 
@@ -111,7 +113,8 @@
 				var zoom = ($('.body-zoom').css('zoom')) ? $('.body-zoom').css('zoom') : 1;
 				var factor = ((1 / zoom) -1);
 		    $("#"+self.id).draggable({
-		      start: function() {
+		      start: function(e, ui) {
+						self.dragging = true;
 		      },
 		      drag: function(e, ui) {
 						var pos = ui.position;
@@ -131,6 +134,7 @@
 							text : $("#"+self.id+" span:first").text()
 		        });
 		        self.setPos(self.pos.x, self.pos.y);
+						setTimeout(function(){ self.dragging = false;}, 300);
 		      }
 		    });
 			}
