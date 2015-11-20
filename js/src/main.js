@@ -1,4 +1,5 @@
 $(function(){
+
     $(window).on("hashchange", function(){
       location.reload();
     });
@@ -22,37 +23,35 @@ $(function(){
     * 同時接続数を取得するロジック
     */
     var ds_connection = milkcocoa.dataStore("connection_count").child(room);
-    milkcocoa.onError(function(err){
-      $(".toast-error").off().click(function(e){
-        location.reload();
-      });
-      toastr.error('Disconnected! Click here!');
-    });
-
-    milkcocoa.onClosed(function(){
-      $(".toast-error").off().click(function(e){
-        location.reload();
-      });
-      toastr.error('Disconnected! Click here!');
-    });
-
-    milkcocoa.onConnected(function(){
-      toastr.info('connected 🐶');
-    });
 
     // milkcocoaインスタンス生成後、コネクションデータを送信し、その後レンダリングやリスナー設置
     ds_connection.push({}, function(){
       // コネクション数のレンダリングと、コネクション増加時のカウントアップ
       ds_connection.stream().size(999).next(function(err, data) {
-
         // 堆積したコネクションを削除
         var limit = 1000*45;
-        data = data.map(function(datum){
+        data = data.filter(function(datum){
           var isFresh = (datum.timestamp > data[data.length-1].timestamp - limit);
           if(!isFresh) ds_connection.remove(datum.id);
           return isFresh;
         });
 
+        // 部屋とコネクションを記録
+        var _room;
+        if(room != "") _room = room;
+        else _room = "__room__";
+
+        milkcocoa.dataStore("rooms").set(_room, {connection: data.length},
+        function(err, datum){
+          // 成功時
+          console.log(err, datum);
+        },
+        function(err, datum){
+          // セキュリティや制限のエラー
+          toast.error("セキュリティおよび負荷の理由で接続に失敗しました");
+        });
+
+        // コネクションを表示
         var pushed_count = 0;
         $("title").text("Wowoo("+data.length+")");
 
