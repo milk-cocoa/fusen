@@ -50,18 +50,19 @@ $(function(){
         else _room = "__root__";
 
         var ds_room = milkcocoa.dataStore("rooms");
-        ds_room.get(_room, function(err, room_data){
-          room_data.value.access++;
-          ds_room.set(_room, {connection: data.length, access: room_data.value.access, updated_at: Date.now()},
-            function(err, datum){
-              // 成功時
-            },
-            function(err, datum){
-              // セキュリティや制限のエラー
-              toast.error("セキュリティおよび負荷の理由で接続に失敗しました");
-            }
-          );
-        });
+          ds_room.get(_room, function(err, room_data){
+            if(err == "not found") room_data = { value : { access: 0 }  };
+            room_data.value.access++;
+            ds_room.set(_room, {connection: data.length, access: room_data.value.access, updated_at: Date.now()},
+              function(err, datum){
+                // 成功時
+              },
+              function(err, datum){
+                // セキュリティや制限のエラー
+                toast.error("セキュリティおよび負荷の理由で接続に失敗しました");
+              }
+            );
+          });
 
         // コネクションを表示
         var pushed_count = 0;
