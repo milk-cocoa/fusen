@@ -287,8 +287,24 @@ $(function(){
         },
         removeBalloon : function (){
           $(".posting-balloon").remove();
+        },
+        zoomIn : function (zoomLev) {
+            if (zoomLev > 1) {
+                if (typeof (document.body.style.zoom) != "undefined") {
+                    $(document.body).css('zoom', zoomLev);
+                }else {
+                    // Mozilla doesn't support zoom, use -moz-transform to scale and compensate for lost width
+                    $('#divWrap').css({
+                        "-moz-transform": 'scale(" + zoomLev + ")',
+                        width: $(window).width() / zoomLev
+                    });
+                }
+            }
         }
-
-
     }
+
+
+    // スマホならズーム
+    if(device == "mobile") fusen_util.zoomIn(2.0);
+
 });
