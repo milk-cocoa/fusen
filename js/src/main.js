@@ -12,6 +12,15 @@ $(function(){
     if(room != "") ds = ds.child(room);
     $("#title").val(room);
 
+    function pad (num) { return ("0" + num).substr(-2,2) };
+    var today = {
+      m: pad( (new Date()).getMonth()+1 ),
+      d: pad( (new Date()).getDate() )
+    }
+    console.log(today);
+
+    $("#title").attr("placeholder", "例) <your name>_"+today.m+today.d+"_todo")
+
     // titleの場所で板移動
     $("#title").keypress(function(e){
       if(e.which == 13){
