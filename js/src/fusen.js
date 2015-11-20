@@ -92,6 +92,7 @@
 						});
 					}
 				});
+				$("#"+self.id).find("a").click(function(e){ e.stopPropagation(); });
 			}
 
 			Fusen.prototype.setCrossListener = function(){
