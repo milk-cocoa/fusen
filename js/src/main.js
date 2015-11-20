@@ -136,6 +136,9 @@ $(function(){
         for(var i=0;i < datas.length;i++) {
             create_memo(datas[i].id, datas[i].value.x, datas[i].value.y, datas[i].value.text, datas[i].value.color);
         }
+
+        // 付箋設置後に、スマホならズーム
+        if(device == "mobile") fusen_util.zoomIn(2.0);
     });
     ds.on('push', function(pushed) {
         create_memo(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
@@ -302,9 +305,5 @@ $(function(){
             }
         }
     }
-
-
-    // スマホならズーム
-    if(device == "mobile") fusen_util.zoomIn(2.0);
 
 });
