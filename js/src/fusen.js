@@ -62,6 +62,7 @@
 
 					if(self.dragging == false){
 						$self = $(this);
+						var $el_acm = $self.html();
 						var when_clicked_text = $self.find("span").text();
 						$self.find("span").hide();
 						$input = $self.find("input");
@@ -80,14 +81,10 @@
 							}
 
 							// ESC
-			       	if (e.which == 27) {
-								hideInput(when_clicked_text);
-							}
-
-							function hideInput(text) {
+			       	if (e.which == 27) hideInput();
+							function hideInput() {
 								$input.hide();
-								$self.find("span").text(text);
-								$self.find("span").show();
+								$self.html($el_acm);
 							}
 						});
 					}
