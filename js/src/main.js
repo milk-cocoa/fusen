@@ -149,7 +149,6 @@ $(function(){
     });
     ds.on("push", function(pushed) {
         fusenBuilder.renderWithListener(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
-        $("a").setThumbnailListener();
     });
 
     ds.on('set', function(setted) {

@@ -13,13 +13,14 @@
 		this.$el_fusen = $("#"+self.id);
 		this.dragging = false;
 
-		// 削除ボタンのレイアウト等
+		// render
     if (fusen_util.getDevice() == "mobile") {
       this.canvas.append( self.mobilehtml() );
     } else {
       this.canvas.append( self.pchtml() );
     }
 
+  	$("a").setThumbnailListener();
 	}
 
 	Fusen.prototype.setAllListeners = function(){
@@ -140,6 +141,49 @@
 		      }
 		    });
 			}
+			Fusen.prototype.setFavoriteListener = function () {
+				var self = this;
+				var ds_star = milkcocoa.dataStore("fusen-stars__"+self.id);
+
+				ds_star.stream().size(999).next(function(err, data) {
+					var $star = $("#"+self.id).find(".p-husen__star-ever");
+					if(data.length > 0){
+						$star.removeClass("p-husen__star-ever");
+						$star.addClass("p-husen__star-pushed");
+					}
+					$star.text("★"+data.length);
+				});
+
+
+				ds_star.on("push", function(data){
+					var $star = $("#"+self.id).find("[class^='p-husen__star-']");
+					var num = parseInt( $star.text().substr(1) );
+					$star.text("★"+(num+1));
+				});
+
+				ds_star.on("remove", function(data){
+					var $star = $("#"+self.id).find(".p-husen__star-ever");
+					var num = parseInt( $star.text().substr(1) );
+					$star.text("★"+(num-1));
+				});
+
+				$("#"+self.id).find(".p-husen__star-ever").off().click(function(e){
+					e.stopPropagation();
+					$(this).removeClass("p-husen__star-ever");
+					$(this).addClass("p-husen__star-pushed");
+					ds_star.push({});
+				});
+
+				$("#"+self.id).find(".p-husen__star-pushed").off().click(function(e){
+					e.stopPropagation();
+					$(this).removeClass("p-husen__star-pushed");
+					$(this).addClass("p-husen__star-ever");
+					ds_star.stream().size(1).next(function(err, data){
+						ds_star.remove(data[0].id);
+					});
+				});
+
+			}
 
 	Fusen.prototype.setPos = function(x, y) {
 		var self = this;
@@ -173,6 +217,7 @@
 		$("#" + self.id).remove();
 	}
 
+
 	Fusen.prototype.colorAdjust = function(){
 		var self = this;
 		var fusen_color = self.$el_fusen.css("border-color");
@@ -196,50 +241,6 @@
 				'<div class="p-husen__cross">×</div>'+
 				'<div class="p-husen__star-ever">★</div>'+
 			'</div>';
-	}
-
-	Fusen.prototype.setFavoriteListener = function () {
-		var self = this;
-		var ds_star = milkcocoa.dataStore("fusen-stars__"+self.id);
-
-		ds_star.stream().size(999).next(function(err, data) {
-			var $star = $("#"+self.id).find(".p-husen__star-ever");
-			if(data.length > 0){
-				$star.removeClass("p-husen__star-ever");
-				$star.addClass("p-husen__star-pushed");
-			}
-			$star.text("★"+data.length);
-		});
-
-
-		ds_star.on("push", function(data){
-			var $star = $("#"+self.id).find("[class^='p-husen__star-']");
-			var num = parseInt( $star.text().substr(1) );
-			$star.text("★"+(num+1));
-		});
-
-		ds_star.on("remove", function(data){
-			var $star = $("#"+self.id).find(".p-husen__star-ever");
-			var num = parseInt( $star.text().substr(1) );
-			$star.text("★"+(num-1));
-		});
-
-		$("#"+self.id).find(".p-husen__star-ever").off().click(function(e){
-			e.stopPropagation();
-			$(this).removeClass("p-husen__star-ever");
-			$(this).addClass("p-husen__star-pushed");
-			ds_star.push({});
-		});
-
-		$("#"+self.id).find(".p-husen__star-pushed").off().click(function(e){
-			e.stopPropagation();
-			$(this).removeClass("p-husen__star-pushed");
-			$(this).addClass("p-husen__star-ever");
-			ds_star.stream().size(1).next(function(err, data){
-				ds_star.remove(data[0].id);
-			});
-		});
-
 	}
 
 	Fusen.prototype.mobilehtml = function(){
