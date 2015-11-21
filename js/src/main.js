@@ -73,7 +73,7 @@ $(function(){
         },
         function(err, datum){
           // セキュリティや制限のエラー
-          toast.error("セキュリティおよび負荷の理由で接続に失敗しました");
+          toast.error("Connection failed because of security or traffic.");
         }
       );
     });

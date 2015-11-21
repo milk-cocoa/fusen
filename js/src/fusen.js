@@ -40,7 +40,7 @@
 
 		    $("#"+self.id).bind( "touchstart", function(e){
 		      timer = setTimeout( function(){
-		        if ( confirm("このメッセージを削除しますか？") === true ){
+		        if ( confirm("Delete this message?") === true ){
 		          self.ds.remove(self.id);
 		        }
 		      }, interval );
