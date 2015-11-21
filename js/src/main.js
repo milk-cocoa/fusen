@@ -267,7 +267,7 @@ $(function(){
         },
     		linknize : function (escapedText) {
     		  // とりあえず高階関数で実装
-          var short_url_reg = /^(?!https?:\/\/)([A-Za-z0-9][A-Za-z0-9\-]{1,61}[A-Za-z0-9]\.)+[A-Za-z]+\/?[A-Za-z0-9\-_]*/;
+          var short_url_reg = /^(?!https?:\/\/)([A-Za-z0-9\-]{0,61}[A-Za-z0-9]\.)+[A-Za-z]+\/?[A-Za-z0-9\-_]*/;
     			var http_regexp = /https?:\/\/.+(\ |$)/;
 
           // スペース区切りでチェックしていく
