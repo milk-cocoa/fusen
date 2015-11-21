@@ -11,7 +11,7 @@
 	text-align: center;
 	background: #FFFFFF;
 	border: 3px solid #19283C;
-	z-index: 0;
+	z-index: 3;
 }
 .posting-balloon input {
 	border: none;

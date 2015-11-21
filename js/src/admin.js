@@ -10,7 +10,7 @@ $(function(){
       var room = "fusen";
       if(datum.id != "__root__") room += "/"+datum.id;
       milkcocoa.dataStore(room).stream().size(999).next(function(err, fusens){
-        $("body ul").append("<li data-board_id='"+datum.id+"'>"+(i+1)+". "+datum.id+"(c:"+datum.value.connection+", a:"+datum.value.access+", p:"+fusens.length+") ----------------------- "+jptime( new Date(datum.timestamp) )+", "+jptime( new Date(datum.value.updated_at) )+"</li>");
+        $("body ul").append("<li data-board_id='"+htmlEscape(datum.id)+"'>"+(i+1)+". "+htmlEscape(datum.id)+"(c:"+datum.value.connection+", a:"+datum.value.access+", p:"+fusens.length+") ----------------------- "+jptime( new Date(datum.timestamp) )+", "+jptime( new Date( datum.value.updated_at ) )+"</li>");
       });
       return "";
     });
@@ -28,9 +28,16 @@ function jptime(myD){
 }
 
 function sum(arr) {
-    if (arr.length > 0) {
-      return arr.reduce(function(prev, current, i, arr) {
-          return prev+current;
-      });
-    } else return 0;
+  if (arr.length > 0) {
+    return arr.reduce(function(prev, current, i, arr) {
+      return prev+current;
+    });
+  } else return 0;
 };
+
+function htmlEscape(s) {
+  s=s.replace(/&/g,'&amp;');
+  s=s.replace(/>/g,'&gt;');
+  s=s.replace(/</g,'&lt;');
+  return s;
+}

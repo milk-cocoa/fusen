@@ -244,88 +244,72 @@ window.fusen_util = {
     return s;
   },
   copy : function (text){
-    // clipboard.jsを使う
-    // promptを使わない
-    /*
-    document.addEventListener('copy', function(e) {
-    e.preventDefault();
-    if (e.clipboardData) {
-    e.preventDefault();
-    e.clipboardData.setData('text/plain', "Hello");
-  }
-  if (window.clipboardData) {
-  e.returnValue = false;
-  window.clipboardData.setData('text/plain', "World");
-}
-}, false);
+    $(document).trigger("copy");
+  },
+  userAgent : function(){
+    return window.navigator.userAgent.toLowerCase();
+  },
+  linknize : function (escapedText) {
+    // とりあえず高階関数で実装
+    var short_url_reg = /^(?!https?:\/\/)([A-Za-z0-9\-]{0,61}[A-Za-z0-9]\.)+[A-Za-z]+\/?[A-Za-z0-9\-_]*/;
+    var http_regexp = /https?:\/\/.+(\ |$)/;
 
-*/
-$(document).trigger("copy");
-},
-userAgent : function(){
-  return window.navigator.userAgent.toLowerCase();
-},
-linknize : function (escapedText) {
-  // とりあえず高階関数で実装
-  var short_url_reg = /^(?!https?:\/\/)([A-Za-z0-9\-]{0,61}[A-Za-z0-9]\.)+[A-Za-z]+\/?[A-Za-z0-9\-_]*/;
-  var http_regexp = /https?:\/\/.+(\ |$)/;
-
-  // スペース区切りでチェックしていく
-  var linkedText = escapedText.split(" ").map(function(_t){
-    var short_url_matched = escapedText.match(short_url_reg);
-    var short_url = (short_url_matched != null) ? short_url_matched[0] : null;
-    if(short_url != null){
-      _t = _t.replace(short_url_reg, "http://"+short_url);
-    }
+    // スペース区切りでチェックしていく
+    var linkedText = escapedText.split(" ").map(function(_t){
+      var short_url_matched = escapedText.match(short_url_reg);
+      var short_url = (short_url_matched != null) ? short_url_matched[0] : null;
+      if(short_url != null){
+        _t = _t.replace(short_url_reg, "http://"+short_url);
+      }
 
 
-    var found = _t.match(http_regexp);
-    if (found) {
-      var url = found[0];
-      var short_url = url.split(/\/\//)[url.split(/\/\//).length - 1];
-      var _t = _t.replace(http_regexp, "<a href='"+url+"' target='_blank'>"+short_url+"</a>" ) ;
-    }
-    return _t;
-  }).join(" ");
-
-  linkedText = hashnize(linkedText);
-  return linkedText;
-
-  function hashnize(linkedText) {
-    // hashをリンク化
-    var hash_regexp = /^#.+/;
-    var hashedText = linkedText.split(" ").map(function(_t){
-      if ( _t.match(hash_regexp) ) {
-        var url = location.href + _t;
-        _t = _t.replace(hash_regexp, "<a href='"+url+"' target='_blank'>"+_t+"</a>");
+      var found = _t.match(http_regexp);
+      if (found) {
+        var url = found[0];
+        var short_url = url.split(/\/\//)[url.split(/\/\//).length - 1];
+        var _t = _t.replace(http_regexp, "<a href='"+url+"' target='_blank'>"+short_url+"</a>" ) ;
       }
       return _t;
     }).join(" ");
-    return hashedText;
-  }
-},
-removeBalloonOnESC : function (){
-  $(document).off("keyup").on("keyup", function(e) {
-    if (e.keyCode == 27) fusen_util.removeBalloon();
-  });
-},
-removeBalloon : function (){
-  $(".posting-balloon").remove();
-},
-zoomIn : function (zoomLev) {
-  if (zoomLev > 1) {
-    if (typeof (document.body.style.zoom) != "undefined") {
-      //$(document.body).css('zoom', zoomLev);
-      $('body').addClass("body-zoom");
-    }else {
-      // Mozilla doesn't support zoom, use -moz-transform to scale and compensate for lost width
-      $('#divWrap').css({
-        "-moz-transform": 'scale(" + zoomLev + ")',
-        width: $(window).width() / zoomLev
-      });
+
+    linkedText = hashnize(linkedText);
+    return linkedText;
+
+    function hashnize(linkedText) {
+      // hashをリンク化
+      var hash_regexp = /^#.+/;
+      var hashedText = linkedText.split(" ").map(function(_t){
+        if ( _t.match(hash_regexp) ) {
+          var url = location.href + _t;
+          _t = _t.replace(hash_regexp, "<a href='"+url+"' target='_blank'>"+_t+"</a>");
+        }
+        return _t;
+      }).join(" ");
+      return hashedText;
+    }
+  },
+  removeBalloonOnESC : function (){
+    $(document).off("keyup").on("keyup", function(e) {
+      if (e.keyCode == 27) fusen_util.removeBalloon();
+    });
+  },
+  removeBalloon : function (){
+    $(".posting-balloon").remove();
+  },
+  zoomIn : function (zoomLev) {
+    if (zoomLev > 1) {
+      if (typeof (document.body.style.zoom) != "undefined") {
+        //$(document.body).css('zoom', zoomLev);
+        $('body').addClass("body-zoom");
+      }else {
+        // Mozilla doesn't support zoom, use -moz-transform to scale and compensate for lost width
+        $('#divWrap').css({
+          "-moz-transform": 'scale(" + zoomLev + ")',
+          width: $(window).width() / zoomLev
+        });
+      }
     }
   }
-}
 }
 
 });
