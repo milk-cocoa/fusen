@@ -4,16 +4,17 @@ milkcocoa.onError(function(err){
   $(".toast-error").off().click(function(e){
     location.reload();
   });
-  toastr.error('Disconnected! Click here!');
+  console.error(err);
+  toastr.error('Error occured. Please reload.');
 });
 
 milkcocoa.onClosed(function(){
   $(".toast-error").off().click(function(e){
     location.reload();
   });
-  toastr.error('Disconnected! Click here!');
+  toastr.error('Disconnected! Please reload.');
 });
 
 milkcocoa.onConnected(function(){
-  toastr.info('connected 🐶');
+  toastr.info('Connected 🐶');
 });

@@ -5,7 +5,13 @@ $(function(){
     });
 
     var ua = navigator.userAgent;
+
+    // 板名取得
     var ds = milkcocoa.dataStore('fusen');
+    var room = "";
+    if(location.hash) room = location.hash.slice(1);
+    if(room != "") ds = ds.child(room);
+
     var curClr = "one";
     var canvas = $("#canvas");
     var fusenBuilder = new FusenBuilder(canvas, ds);
@@ -17,10 +23,7 @@ $(function(){
         device = "pc";
     }
 
-
-    var room = "";
-    if(location.hash) room = location.hash.slice(1);
-    if(room != "") ds = ds.child(room);
+    // 板タイトルについて
     $("#title").val(room);
 
     function pad (num) { return ("0" + num).substr(-2,2) };
