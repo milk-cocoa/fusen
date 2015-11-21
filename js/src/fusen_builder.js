@@ -8,18 +8,18 @@
 	}
 
 	FusenBuilder.prototype.render = function(id, x, y, _text, color){
-    var text = _text || "";
-    var fusen = this.createFusen(id, text, color);
-    fusen.setPos(x, y);
-    return fusen;
+		var text = _text || "";
+		var fusen = this.createFusen(id, text, color);
+		fusen.setPos(x, y);
+		return fusen;
 	}
 
 	FusenBuilder.prototype.renderWithListener = function(id, x, y, _text, color){
-    var text = _text || "";
-    var fusen = this.createFusen(id, text, color);
-    fusen.setPos(x, y);
+		var text = _text || "";
+		var fusen = this.createFusen(id, text, color);
+		fusen.setPos(x, y);
 		fusen.setAllListeners();
-    return fusen;
+		return fusen;
 	}
 
 	FusenBuilder.prototype.getFusen = function(id) {
@@ -27,15 +27,15 @@
 	}
 
 	FusenBuilder.prototype.createFusen = function(id, text, color) {
-    var fusen = new Fusen(this.canvas, this.ds, id, text, color, this.fusensByOrder.length+1);
-    this.fusens[id] = fusen;
-    this.fusensByOrder.push(fusen);
+		var fusen = new Fusen(this.canvas, this.ds, id, text, color, this.fusensByOrder.length+1);
+		this.fusens[id] = fusen;
+		this.fusensByOrder.push(fusen);
 		return fusen;
 	}
 
 	FusenBuilder.prototype.replay = function(cb){
 		this.canvas.empty();
-    cb(this.fusensByOrder);
+		cb(this.fusensByOrder);
 	}
 
 	global.FusenBuilder = FusenBuilder;
