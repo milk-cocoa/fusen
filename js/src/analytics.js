@@ -1,4 +1,6 @@
 $(function(){
+  if(prompt("Admin password?") != "mochi") location.href = "/";
+
   milkcocoa.dataStore("rooms").stream().size(999).next(function(err, data){
     $("body").append("<ul></ul>");
 
