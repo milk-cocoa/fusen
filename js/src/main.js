@@ -32,7 +32,7 @@ $(function(){
     d: pad( (new Date()).getDate() )
   }
 
-  $("#title").attr("placeholder", "例) <your name>_"+today.m+today.d+"_todo")
+  $("#title").attr("placeholder", "ex) <name>_"+today.m+today.d+"_todo")
 
   // titleの場所で板移動
   $("#title").keypress(function(e){
