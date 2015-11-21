@@ -154,13 +154,13 @@ $(function(){
         fusenBuilder.renderWithListener(pushed.id, pushed.value.x, pushed.value.y, pushed.value.text, pushed.value.color);
     });
 
-    ds.on('set', function(setted) {
+    ds.on("set", function(setted) {
         var fusen = fusenBuilder.getFusen(setted.id);
         fusen.setPos(setted.value.x, setted.value.y);
         fusen.setText(setted.value.text);
     });
 
-    ds.on('remove', function(_removed) {
+    ds.on("remove", function(_removed) {
         var removed = _removed;
         fusenBuilder.getFusen(removed.id).removeSelf();
     });
@@ -267,12 +267,22 @@ $(function(){
         },
     		linknize : function (escapedText) {
     		  // とりあえず高階関数で実装
+          var short_url_reg = /^(?!https?:\/\/)([A-Za-z0-9][A-Za-z0-9\-]{1,61}[A-Za-z0-9]\.)+[A-Za-z]+\/?[A-Za-z0-9\-_]*/;
     			var http_regexp = /https?:\/\/.+(\ |$)/;
+
+          // スペース区切りでチェックしていく
     			var linkedText = escapedText.split(" ").map(function(_t){
+            var short_url_matched = escapedText.match(short_url_reg);
+            var short_url = (short_url_matched != null) ? short_url_matched[0] : null;
+            if(short_url != null){
+              _t = _t.replace(short_url_reg, "http://"+short_url);
+            }
+
+
     				var found = _t.match(http_regexp);
     				if (found) {
     					var url = found[0];
-    					var short_url = url.split(/\/\//)[1];
+    					var short_url = url.split(/\/\//)[url.split(/\/\//).length - 1];
     					var _t = _t.replace(http_regexp, "<a href='"+url+"' target='_blank'>"+short_url+"</a>" ) ;
     				}
     				return _t;

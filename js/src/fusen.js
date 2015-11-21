@@ -12,6 +12,7 @@
 		this.fusenNumber = fusenNumber;
 		this.$el_fusen = $("#"+self.id);
 		this.dragging = false;
+		this.editing = false;
 
 		// render
     if (fusen_util.getDevice() == "mobile") {
@@ -61,7 +62,10 @@
 				$("#"+self.id).click(function(e){
 					e.stopPropagation();
 
+					// clickしたあとdragする処理に弱い
 					if(self.dragging == false){
+						self.editting = true;
+
 						$self = $(this);
 						var $el_acm = $self.html();
 						var when_clicked_text = $self.find("span").text();
@@ -82,7 +86,7 @@
 							// ENTER
 							if(e.which == 13){
 								self.ds.set(self.id+"", {text: when_entered_text},function(err, datum){
-									hideInput(when_entered_text);
+									hideInput();
 								});
 							}
 
@@ -93,6 +97,7 @@
 						function hideInput() {
 							$input.hide();
 							$self.html($el_acm);
+							self.editting = false;
 						}
 					}
 				});
@@ -117,6 +122,7 @@
 				// ドラッグボタン
 				var zoom = ($('.body-zoom').css('zoom')) ? $('.body-zoom').css('zoom') : 1;
 				var factor = ((1 / zoom) -1);
+
 		    $("#"+self.id).draggable({
 		      start: function(e, ui) {
 						self.dragging = true;
