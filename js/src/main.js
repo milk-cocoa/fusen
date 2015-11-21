@@ -228,7 +228,7 @@ $(function(){
       fusenBuilder.replay(function(fusensByOrder){
         setInterval(function(){
           var fusen = fusensByOrder.shift();
-          create_memo(fusen.id, fusen.pos.x, fusen.pos.y, fusen.text, fusen.color);
+          fusenBuilder.renderWithListener(fusen.id, fusen.pos.x, fusen.pos.y, fusen.text, fusen.color);
         }, 750);
       });
     });

@@ -74,6 +74,7 @@
 						$input.off("blur").on("blur", function(e){
 							hideInput();
 						});
+
 						$input.off("keyup").on("keyup", function(e){
 							$_input = $(this);
 							var when_entered_text = $_input.val();
@@ -88,6 +89,7 @@
 							// ESC
 			       	if (e.which == 27) hideInput();
 						});
+
 						function hideInput() {
 							$input.hide();
 							$self.html($el_acm);
