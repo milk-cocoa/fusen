@@ -9,7 +9,7 @@ $(function(){
     // 板名取得
     var ds = milkcocoa.dataStore('fusen');
     var room = "";
-    if(location.hash) room = location.hash.slice(1);
+    if(location.hash) room = decodeURIComponent( location.hash.slice(1) );
     if(room != "") ds = ds.child(room);
 
     var curClr = "one";
