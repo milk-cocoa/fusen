@@ -4,12 +4,14 @@
   "description": "fusen =====",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp" : "*",
+    "gulp": "*",
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^1.0.1",
     "gulp-webserver": "^0.8.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "toastr": "^2.1.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,0 +1,46 @@
+/* balloon-1 bottom */
+.posting-balloon {
+	position: absolute;
+	display: inline-block;
+	padding: 0 5px;
+	width: auto;
+	min-width: 115px;
+	height: 40px;
+	line-height: 34px;
+	color: #19283C;
+	text-align: center;
+	background: #FFFFFF;
+	border: 3px solid #19283C;
+	z-index: 3;
+}
+.posting-balloon input {
+	border: none;
+}
+.posting-balloon input:focus {
+  outline: 0;
+  border-color: gray;
+}
+.posting-balloon:before {
+	content: "";
+	position: absolute;
+	bottom: -8px; left: 50%;
+	margin-left: -9px;
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 9px 9px 0 9px;
+	border-color: #F6F6F6 transparent transparent transparent;
+	z-index: 0;
+}
+.posting-balloon:after {
+	content: "";
+	position: absolute;
+	bottom: -12px; left: 50%;
+	margin-left: -10px;
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 10px 10px 0 10px;
+	border-color: #19283C transparent transparent transparent;
+	z-index: -1;
+}
