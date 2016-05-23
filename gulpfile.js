@@ -2,10 +2,11 @@ var gulp = require('gulp');
 var webserver = require('gulp-webserver');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var gulpUtil = require('gulp-util');
 
 gulp.task('js-task',function(){
     return gulp.src('js/src/*.js')
-        .pipe(uglify())
+        .pipe(uglify().on('error', gulpUtil.log))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('app/jsmin/'));
 });
