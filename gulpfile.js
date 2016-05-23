@@ -8,16 +8,16 @@ gulp.task('js-task',function(){
     return gulp.src('js/src/*.js')
         .pipe(uglify().on('error', gulpUtil.log))
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('app/jsmin/'));
+        .pipe(gulp.dest('jsmin/'));
 });
 
 gulp.task("js-lib-task",function(){
     return gulp.src("js/lib/*.js")
-        .pipe(gulp.dest("app/jsmin/lib/"));
+        .pipe(gulp.dest("jsmin/lib/"));
 });
 
 gulp.task('webserver', function() {
-      gulp.src('/')
+      gulp.src('./')
         .pipe(webserver({
             livereload: false,
             directoryListing: false,
